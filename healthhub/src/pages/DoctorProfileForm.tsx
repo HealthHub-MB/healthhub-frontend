@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../components/Button'; // adjust the path as needed
 import axios from 'axios';
+import DashboardHeader from '../components/DashboardHeader';
 
 const DoctorProfileForm = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +30,9 @@ const DoctorProfileForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-start px-40 py-5 w-full max-w-[1280px] mx-auto">
+    <>
+    <DashboardHeader />
+    <div className="flex justify-center items-start px-40 py-5 w-full max-w-[1280px] mx-auto ">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-start gap-5 w-[960px] max-w-full"
@@ -134,6 +137,7 @@ const DoctorProfileForm = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 
