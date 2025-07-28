@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import Button from '../components/Button';
 import axios from 'axios';
+import DashboardHeader from '../components/DashboardHeader';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +30,12 @@ const LoginPage = () => {
     }
   };
 
-  return (
+  const onButtonClick = () =>{
+    console.log("Hello")
+    navigate('/register');
+  }
+  return (<>
+  <DashboardHeader buttonText = "Signup" onButtonClick={onButtonClick}/>
     <div className="min-h-screen flex justify-center items-center bg-white px-4">
       <form
         onSubmit={handleLogin}
@@ -119,6 +127,7 @@ const LoginPage = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

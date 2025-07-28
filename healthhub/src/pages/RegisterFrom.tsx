@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DashboardHeader from '../components/DashboardHeader';
 
 interface RegisterFormData {
   fullName: string;
@@ -49,64 +50,93 @@ const RegisterForm: React.FC = () => {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-6 flex flex-col gap-6">
-      <h2 className="text-2xl font-bold text-center">Create Your Account</h2>
+  return (<>
+  <DashboardHeader buttonText = "Login" />
+    <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-6 flex flex-col gap-6 items-start "
+        style={{ width: '960px', maxWidth: '960px', height: '695px' }}>
+        
+     <div className="flex flex-col items-center px-4 pb-3" style={{ width: '960px', height: '67px' }}>
+          <h1
+            className="text-center font-bold"
+            style={{
+              width: '928px',
+              height: '35px',
+              fontSize: '28px',
+              lineHeight: '35px',
+              color: '#121417',
+              fontFamily: 'Inter',
+            }}
+          >
+            Create Your Account
+          </h1>
+        </div>
 
       {/* Full Name */}
-      <div style={{width: "500px", border:"1px solid black"}}>
-        <label className="block text-base font-medium mb-2">Full Name</label>
+       <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
+          <div className="flex flex-col w-[448px] h-[88px]">
+            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
+              Full Name
+            </label>
         <input
           type="text"
           name="fullName"
           placeholder="Enter your full name"
-          className="w-full p-4 rounded-xl bg-[#F2F2F5] focus:outline-none"
+          className="w-full p-4 border border-[#DEE0E3] rounded-xl focus:outline-none"
           value={formData.fullName}
           onChange={handleChange}
           required
         />
       </div>
+      </div>
 
       {/* Email */}
-      <div>
-        <label className="block text-base font-medium mb-2">Email</label>
+      <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
+          <div className="flex flex-col w-[448px] h-[88px]">
+            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
+               Email
+            </label>
         <input
           type="email"
           name="email"
           placeholder="Enter your email"
-          className="w-full p-4 rounded-xl bg-[#F2F2F5] focus:outline-none"
+          className="w-full p-4 border border-[#DEE0E3] rounded-xl focus:outline-none"
           value={formData.email}
           onChange={handleChange}
           required
         />
       </div>
+      </div>
 
       {/* Password */}
-      <div>
-        <label className="block text-base font-medium mb-2">Password</label>
+      <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
+          <div className="flex flex-col w-[448px] h-[88px]">
+            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
+              Password
+            </label>
         <input
           type="password"
           name="password"
           placeholder="Create a password"
-          className="w-full p-4 rounded-xl bg-[#F2F2F5] focus:outline-none"
+          className="w-full p-4 border border-[#DEE0E3] rounded-xl focus:outline-none"
           value={formData.password}
           onChange={handleChange}
           required
         />
+      </div>
       </div>
 
       {/* Role */}
       <div className="flex gap-4">
         <button
           type="button"
-          className={`p-2 px-4 rounded-md ${formData.role === 'Patient' ? 'bg-[#F2F2F5] font-bold' : 'bg-gray-100'}`}
+          className={`p-2 px-4 rounded-md ${formData.role === 'Patient' ? 'font-bold':'bg-white'}`}
           onClick={() => handleRoleChange('Patient')}
         >
           I am a Patient
         </button>
         <button
           type="button"
-          className={`p-2 px-4 rounded-md ${formData.role === 'Doctor' ? 'bg-[#F2F2F5] font-bold' : 'bg-gray-100'}`}
+          className={`p-2 px-4 rounded-md ${formData.role === 'Doctor' ? 'font-bold':'bg-white'}`}
           onClick={() => handleRoleChange('Doctor')}
         >
           I am a Doctor
@@ -114,13 +144,16 @@ const RegisterForm: React.FC = () => {
       </div>
 
       {/* Gender */}
-      <div>
-        <label className="block text-base font-medium mb-2">Gender</label>
+     <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
+          <div className="flex flex-col w-[448px] h-[88px]">
+            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
+              Gender
+            </label>
         <select
           name="gender"
           value={formData.gender}
           onChange={handleChange}
-          className="w-full p-4 rounded-xl bg-[#F2F2F5] focus:outline-none"
+          className="w-full p-4 rounded-xl border border-[#DEE0E3] focus:outline-none"
           required
         >
           <option value="">Select your gender</option>
@@ -129,21 +162,25 @@ const RegisterForm: React.FC = () => {
           <option value="Other">Other</option>
         </select>
       </div>
+      </div>
 
       {/* Contact */}
-      <div>
-        <label className="block text-base font-medium mb-2">Contact Number</label>
+      <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
+          <div className="flex flex-col w-[448px] h-[88px]">
+            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
+              Contact Number
+            </label>
         <input
           type="tel"
           name="contact"
           placeholder="Enter your contact number"
-          className="w-full p-4 rounded-xl bg-[#F2F2F5] focus:outline-none"
+          className="w-full p-4  border border-[#DEE0E3] rounded-xl  focus:outline-none"
           value={formData.contact}
           onChange={handleChange}
           required
         />
       </div>
-
+     </div>
       {/* Submit Button */}
       <button
         type="submit"
@@ -152,6 +189,7 @@ const RegisterForm: React.FC = () => {
         Sign Up
       </button>
     </form>
+    </>
   );
 };
 
