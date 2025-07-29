@@ -1,30 +1,23 @@
-
-import './App.css'
-import './pages/LoginPage'
-import LoginPage from './pages/LoginPage'
-import RegisterForm from './pages/RegisterFrom'
-import DoctorProfileForm from './pages/DoctorProfileForm'
-import CompleteProfile from './pages/CompleteProfile'
-import AddMedicalHistory from './pages/AddMedicalHistory'
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-function App() {
- 
+import { appRoutes } from './routes/appRoutes';
 
+const App = () => {
+  console.log(appRoutes)
   return (
-    <>
-   <Router>
+    <Router>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterForm />} />
+        {appRoutes.map((route, index) => (
+          <>
+          {console.log(route)}
+          <Route key={index} path={route.path} element={route.element}/>
+          </>
+
+        ))}
       </Routes>
     </Router>
-   <LoginPage/>
-    
-  
-    </>
+ ) 
+};
 
-  )
-}
-
-export default App
+export default App;

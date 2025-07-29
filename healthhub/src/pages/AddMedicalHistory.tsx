@@ -1,132 +1,8 @@
-
-// import React from 'react';
-// import Button from '../components/Button'; // Adjust the path as per your structure
-
-// const AddMedicalHistory: React.FC = () => {
-//   return (
-//     <div className="w-full max-w-[1280px] min-h-[1291px] p-10 bg-white  mx-auto mt-[70px]">
-//       {/* Header */}
-//       <div className="mb-8">
-//        <h2 className="text-[28px] font-bold text-center w-full text-[#121417]">
-//           Add Medical History
-//         </h2>
-
-//       </div>
-
-//       {/* Conditions */}
-//      <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3 max-w-[480px] w-full">
-//           <div className="flex flex-col w-[448px]">
-//             <label className="text-[16px] font-medium text-[#121417] mb-2">Conditions</label>
-//             <input
-//               type="number"
-//               placeholder="Enter your age"
-//               className="w-full h-[56px] px-4 border border-[#DBE0E6] rounded-[12px] text-[#637587] placeholder:text-[#637587] bg-white"
-//             />
-//           </div>
-//         </div>
-
-//       {/* Allergies */}
-//      <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3 max-w-[480px] w-full">
-//           <div className="flex flex-col w-[448px]">
-//             <label className="text-[16px] font-medium text-[#121417] mb-2">Allergies</label>
-//             <input
-//               type="number"
-//               placeholder="Enter your age"
-//               className="w-full h-[56px] px-4 border border-[#DBE0E6] rounded-[12px] text-[#637587] placeholder:text-[#637587] bg-white"
-//             />
-//           </div>
-//         </div>
-//       {/* Medications */}
-//       <div className="mb-6">
-//         <label className="block font-medium mb-2">Medications</label>
-//          <div className="flex gap-4 mb-4">
-//     <input
-//       className="w-[200px] border border-gray-300 rounded-md p-2"
-//       placeholder="Medication Name"
-//     />
-//     <input
-//       className="w-[120px] border border-gray-300 rounded-md p-2"
-//       placeholder="Dosage"
-//     />
-//   </div>
-
-//   {/* Second row */}
-//   <div className="flex gap-4">
-//     <input
-//       className="w-[160px] border border-gray-300 rounded-md p-2"
-//       placeholder="Frequency"
-//     />
-//     <input
-//       className="w-[160px] border border-gray-300 rounded-md p-2"
-//       placeholder="Reason"
-//     />
-//   </div>
-//         <div className="mt-3">
-//           <Button
-//             label="Add Medication"
-//             bgcolor="#F0F2F5"
-//             color="#121417"
-//             textSize="14px"
-//             width="fit-content"
-//             padding="0px 16px"
-//             className="rounded-[12px] font-bold"
-//           />
-//         </div>
-//       </div>
-
-//       {/* Upload Documents */}
-//       <div className="mb-6">
-//         <label className="block font-medium mb-2">Upload Documents</label>
-//         <div className="w-full max-w-[928px] border-2 border-dashed border-gray-300 rounded-md h-[180px] flex flex-col justify-center items-center text-center text-gray-500">
-//           <p className="font-medium">Drag and drop files here</p>
-//           <p className="text-sm">Or click to browse</p>
-//           <Button
-//             label="Upload"
-//             bgcolor="#F0F2F5"
-//             color="#121417"
-//             textSize="14px"
-//             width="fit-content"
-//             padding="0px 16px"
-//             className="mt-4 rounded-[12px] font-bold"
-//           />
-//         </div>
-//       </div>
-
-//       {/* Action Buttons */}
-//       <div className="flex justify-end gap-4 mt-10">
-//         <Button
-//           label="Cancel"
-//           bgcolor="#F0F2F5"
-//           color="#121417"
-//           textSize="14px"
-//           width="114px"
-//           height="40px"
-//           padding="0px 16px"
-//           className="rounded-[12px] font-bold"
-//         />
-//         <Button
-//           label="Save"
-//           bgcolor="#94C2F0"
-//           color="#121417"
-//           textSize="14px"
-//           width="114px"
-//           height="40px"
-//           padding="0px 16px"
-//           className="rounded-[12px] font-bold"
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AddMedicalHistory;
-
-
-
 import React, { useState } from 'react';
 import Button from '../components/Button'; // Adjust path as needed
 import axios from 'axios'; // You must install axios with: npm install axios
 import DashboardHeader from '../components/DashboardHeader'
+import Colors from '../constants/colorConstants';
 
 const AddMedicalHistory: React.FC = () => {
   const [medications, setMedications] = useState([
@@ -264,8 +140,8 @@ const AddMedicalHistory: React.FC = () => {
         <p className="text-sm">Or click to browse</p>
         <Button
          label="Upload"
-         bgcolor="#F0F2F5"
-           color="#121417"
+         bgcolor={Colors.gray}
+           color={Colors.black}
           textSize="14px"
          width="fit-content"
           padding="0px 16px"
@@ -281,8 +157,8 @@ const AddMedicalHistory: React.FC = () => {
         <div className="mt-3">
           <Button
             label="Add Medication"
-            bgcolor="#F0F2F5"
-            color="#121417"
+            bgcolor={Colors.gray}
+            color={Colors.black}
             textSize="14px"
             width="fit-content"
             padding="0px 16px"
@@ -296,8 +172,8 @@ const AddMedicalHistory: React.FC = () => {
       <div className="flex justify-end gap-4 mt-10">
         <Button
           label="Cancel"
-          bgcolor="#F0F2F5"
-          color="#121417"
+          bgcolor={Colors.gray}
+          color={Colors.black}
           textSize="14px"
           width="114px"
           height="40px"
@@ -306,8 +182,8 @@ const AddMedicalHistory: React.FC = () => {
         />
         <Button
           label="Save"
-          bgcolor="#94C2F0"
-          color="#121417"
+          bgcolor={Colors.blue}
+          color={Colors.black}
           textSize="14px"
           width="114px"
           height="40px"
