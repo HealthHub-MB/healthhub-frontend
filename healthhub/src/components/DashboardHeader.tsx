@@ -17,7 +17,7 @@ const DashboardHeader = (props) => {
       <div className="flex items-center justify-end gap-8">
         <button
           onClick={onButtonClick}
-          className="bg-blue-100  text-gray-900 font-bold px-4 py-2 rounded-md"
+          className="bg-blue-100  text-gray-900 font-bold px-4 py-2 rounded-md  hover:bg-blue-400"
         >
           {buttonText}
         </button>

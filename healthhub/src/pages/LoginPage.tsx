@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import Button from '../components/Button';
 import axios from 'axios';
 import DashboardHeader from '../components/DashboardHeader';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link} from 'react-router-dom';
+import Colors from '../constants/colorConstants';
 
-const LoginPage = () => {
+const LoginPage : React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -102,10 +103,10 @@ const LoginPage = () => {
             height="40px"
             width="429px"
             padding="0px 16px"
-            bgcolor="#94C2F0"
+            bgcolor={Colors.blue}
             color="#121417"
             textSize="14px"
-            className="rounded-lg font-bold"
+            className="rounded-lg font-bold "
           />
         </div>
 
@@ -120,9 +121,9 @@ const LoginPage = () => {
         <div className="flex flex-col items-center px-4 pt-1 pb-3" style={{ width: '960px', height: '37px' }}>
           <p className="text-center" style={{ fontFamily: 'Inter', fontSize: '14px', color: '#667882' }}>
             Don’t have an account?{' '}
-            <a href="/signup" className="underline #667882">
+            <Link to ="/register" className="underline #667882">
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </form>

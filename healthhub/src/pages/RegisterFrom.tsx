@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import DashboardHeader from '../components/DashboardHeader';
+import { useNavigate } from 'react-router-dom';
+
 
 interface RegisterFormData {
   fullName: string;
@@ -19,6 +21,7 @@ const RegisterForm: React.FC = () => {
     contact: '',
     role: 'Patient',
   });
+   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -30,28 +33,40 @@ const RegisterForm: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+  e.preventDefault();
+  try {
+    const response = await fetch('http://localhost:8080/api/users/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
 
-      const result = await response.json();
-      if (response.ok) {
-        alert('Registered successfully!');
-      } else {
-        alert(result.message || 'Registration failed');
+    const result = await response.json();
+
+    if (response.ok) {
+      alert('Registered successfully!');
+      
+      if (formData.role === 'Patient') {
+        navigate('/completeprofile');
+      } else if (formData.role === 'Doctor') {
+        navigate('/doctorprofile');
       }
-    } catch (error) {
-      console.error(error);
-      alert('An error occurred');
+    } else {
+      alert(result.message || 'Registration failed');
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert('An error occurred');
+  }
+};
+
+ const onButtonClick = () =>{
+    console.log("Hello")
+    navigate('/');
+  }
 
   return (<>
-  <DashboardHeader buttonText = "Login" />
+  <DashboardHeader buttonText = "Login"  onButtonClick={onButtonClick}/>
     <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-6 flex flex-col gap-6 items-start "
         style={{ width: '960px', maxWidth: '960px', height: '695px' }}>
         
@@ -143,44 +158,6 @@ const RegisterForm: React.FC = () => {
         </button>
       </div>
 
-      {/* Gender */}
-     <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
-          <div className="flex flex-col w-[448px] h-[88px]">
-            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
-              Gender
-            </label>
-        <select
-          name="gender"
-          value={formData.gender}
-          onChange={handleChange}
-          className="w-full p-4 rounded-xl border border-[#DEE0E3] focus:outline-none"
-          required
-        >
-          <option value="">Select your gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      </div>
-
-      {/* Contact */}
-      <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
-          <div className="flex flex-col w-[448px] h-[88px]">
-            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
-              Contact Number
-            </label>
-        <input
-          type="tel"
-          name="contact"
-          placeholder="Enter your contact number"
-          className="w-full p-4  border border-[#DEE0E3] rounded-xl  focus:outline-none"
-          value={formData.contact}
-          onChange={handleChange}
-          required
-        />
-      </div>
-     </div>
       {/* Submit Button */}
       <button
         type="submit"

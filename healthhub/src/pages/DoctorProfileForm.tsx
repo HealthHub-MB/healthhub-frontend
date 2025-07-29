@@ -64,19 +64,25 @@ const DoctorProfileForm = () => {
         </div>
 
         {/* Gender */}
-        <div className="w-full max-w-[480px]">
-          <label className="block text-[#121417] font-medium text-[16px] mb-2">
-            Gender
-          </label>
-          <input
-            type="text"
-            name="gender"
-            placeholder="Enter your gender"
-            value={formData.gender}
-            onChange={handleChange}
-            className="w-full px-4 py-4 border border-[#DBE0E6] rounded-[12px] text-[#121417] placeholder-[#637587] text-[16px]"
-          />
-        </div>
+         <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
+          <div className="flex flex-col w-[448px] h-[88px]">
+            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
+              Gender
+            </label>
+        <select
+          name="gender"
+          value={formData.gender}
+          onChange={handleChange}
+          className="w-full p-4 rounded-xl border border-[#DEE0E3] focus:outline-none"
+          required
+        >
+          <option value="">Select your gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      </div>
 
         {/* Office Address */}
         <div className="w-full max-w-[480px]">
