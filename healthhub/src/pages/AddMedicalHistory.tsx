@@ -150,43 +150,6 @@ const AddMedicalHistory: React.FC = () => {
         </div>
       </div>
 
-       {/* File Name */}
-<div className="flex flex-wrap gap-4 px-4 py-3 max-w-[480px] w-full">
-  <div className="flex flex-col w-[448px]">
-    <label className="text-[16px] font-medium text-[#121417] mb-2">File Name</label>
-    <input
-      type="text"
-      placeholder="File name"
-      value={fileName}
-      onChange={(e) => setFileName(e.target.value)}
-      className="w-full h-[56px] px-4 border border-[#DBE0E6] rounded-[12px]"
-    />
-  </div>
-</div>
-
-      <div className="mb-6">
-                <label className="block font-medium mb-2">Upload Documents</label>
-     <div className="w-full max-w-[928px] border-2 border-dashed border-gray-300 rounded-md h-[180px] flex flex-col justify-center items-center text-center text-gray-500">
-       <p className="font-medium">Drag and drop files here</p>
-        <p className="text-sm">Or click to browse</p>
-        <Button
-         label="Upload"
-         bgcolor={Colors.gray}
-           color={Colors.black}
-          textSize="14px"
-         width="fit-content"
-          padding="0px 16px"
-         className="mt-4 rounded-[12px] font-bold"
-          />
-         </div>
-         
-     </div>
-     
-
-
-
-       
-
       {/* Action Buttons */}
       <div className="flex justify-end gap-4 mt-10">
         <Button

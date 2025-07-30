@@ -23,14 +23,24 @@ const DashboardHeader = (props) => {
     };
   }, []);
 
+  const handleLogout =() =>{
+    localStorage.clear()
+  }
+
   return (
     <div className="flex justify-between items-center px-10 py-3 border-b border-gray-200 w-full h-[65px]">
       {/* Left Logo Section */}
-      <div className="flex items-center gap-4">
-        {/* Icon Placeholder */}
-        <div className="w-4 h-4 bg-black rounded" />
-        <span className="text-xl font-bold text-gray-900">Health Hub</span>
-      </div>
+     <div className="flex items-center gap-4">
+  <Link
+    to={isDoctor ? "/doctor-dashboard" : isPatient ? "/patient-dashboard" : "/"}
+    className="flex items-center gap-4"
+  >
+    {/* Icon Placeholder */}
+    <div className="w-4 h-4 bg-black rounded" />
+    <span className="text-xl font-bold text-gray-900">Health Hub</span>
+  </Link>
+</div>
+
 
       {isDoctor && (
         <>
@@ -45,29 +55,7 @@ const DashboardHeader = (props) => {
           <Link to={"/find-a-doctor"}>Find a doctor</Link>
         </>
       )}
-
-      {/* {(isDoctor || isPatient) && (
-        <div className="flex justify-end p-4 bg-gray-100">
-          <div className="relative" ref={dropdownRef}>
-            <img
-              src="src/assets/user.png"
-              width={40}
-              height={40}
-              onClick={() => handleToggleMenu()}
-              className="w-10 h-10 rounded-full cursor-pointer"
-            />
-            {open && (
-              <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-10">
-                <Link to={"/editPatientFrom"}>My Profile</Link>
-          <Link to={"/"}>Logout</Link>
-              </div>
-            )}
-          </div>
-        </div>
-      )} */}
-
-
-      {(isDoctor || isPatient) && (
+    {(isDoctor || isPatient) && (
   <div className="flex justify-end p-4 bg-gray-100">
     <div className="relative" ref={dropdownRef}>
       <img
@@ -99,6 +87,7 @@ const DashboardHeader = (props) => {
           <Link
             to="/"
             className="px-4 py-2 hover:bg-gray-100"
+            onClick={handleLogout}
           >
             Logout
           </Link>

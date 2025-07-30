@@ -16,7 +16,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
   onViewProfile
 }) => {
   return (
-    <div className="flex justify-between items-start px-4 py-3 gap-4 w-[960px] h-[111px] bg-white rounded-lg shadow-sm">
+    <div className="flex justify-between items-start px-4 py-3 gap-4 w-[960px] h-[111px] rounded-lg ">
       <div className="flex flex-row gap-4 w-[802px] h-[87px]">
         {/* Avatar */}
         <img

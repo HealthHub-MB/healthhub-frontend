@@ -5,7 +5,15 @@ import DashboardHeader from "../components/DashboardHeader";
 import { useNavigate, Link } from "react-router-dom";
 import Colors from "../constants/colorConstants";
 
+
+
 const LoginPage: React.FC = () => {
+
+
+  
+
+
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -27,12 +35,15 @@ const LoginPage: React.FC = () => {
 
     const users = response.data?.data?.user;
    const userRole = users?.role;
-      const token = response.data?.data?.token;
+      const token = response.data?.data?.accessToken;
+      const userid =users?.id;
 
-    console.log('User role:', userRole);
+
+    console.log('User role:', userRole,userid);
 
     localStorage.setItem('token', token);
     localStorage.setItem('role', userRole);
+    localStorage.setItem('userid', userid);
 
    const user = {
   token,
@@ -183,6 +194,7 @@ if (userRole === "doctor") {
           </div>
         </form>
       </div>
+
     </>
   );
 };

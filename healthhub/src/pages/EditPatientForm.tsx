@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from '../components/Button';
 import Colors from '../constants/colorConstants';
@@ -12,7 +12,7 @@ interface Medication {
 }
 
 interface ProfileFormData {
-  name: string;
+  fullName: string;
   age: string;
   gender: string;
   contactNumber: string;
@@ -23,7 +23,7 @@ interface ProfileFormData {
 
 const EditPatientForm: React.FC = () => {
   const [formData, setFormData] = useState<ProfileFormData>({
-    name: '',
+    fullName: '',
     age: '',
     gender: '',
     contactNumber: '',
@@ -31,6 +31,36 @@ const EditPatientForm: React.FC = () => {
     allergies: '',
     medications: [{ name: '', dosage: '', frequency: '', reason: '' }],
   });
+
+  const [originalData, setOriginalData] = useState<ProfileFormData | null>(null);
+  const [isEditable, setIsEditable] = useState(false);
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/api/patients/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const data = res?.data?.data;
+        const fetchedData: ProfileFormData = {
+          fullName: data?.userId?.fullName || '',
+          age: data?.age || '',
+          gender: data?.gender || '',
+          contactNumber: data?.contactNumber || '',
+          conditions: data?.conditions || '',
+          allergies: data?.allergies || '',
+          medications: data?.medications?.length
+            ? data.medications
+            : [{ name: '', dosage: '', frequency: '', reason: '' }],
+        };
+        setFormData(fetchedData);
+        setOriginalData(fetchedData);
+      })
+      .catch((err) => {
+        console.error('Failed to fetch profile:', err);
+      });
+  }, []);
 
   const handleChange = (field: keyof ProfileFormData, value: string) => {
     setFormData({ ...formData, [field]: value });
@@ -49,52 +79,60 @@ const EditPatientForm: React.FC = () => {
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSave = async () => {
     try {
-      await axios.put('/api/user/profile', formData);
+      await axios.put('http://localhost:8080/api/user/profile', formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       alert('Medical history updated successfully!');
+      setIsEditable(false);
+      setOriginalData(formData);
     } catch (error) {
       console.error('Error updating profile:', error);
       alert('Failed to update medical history.');
     }
   };
 
+  const handleCancel = () => {
+    if (originalData) setFormData(originalData);
+    setIsEditable(false);
+  };
+
   return (
     <>
-     <DashboardHeader isPatient={true}/> 
+      <DashboardHeader isPatient={true} />
       <div className="flex justify-center items-start px-40 py-5 w-full min-h-screen">
         <div className="flex flex-col w-[960px] max-w-[960px]">
-          <h1 className="text-[28px] font-bold text-center text-[#121417] mb-2">My Profile</h1>
-          <p className="text-[16px] font-bold text-center text-[#121417] mb-4">Personal Information</p>
 
-          {/* Name */}
-          <div className="mb-4" style={{ width: '480px', height: '112px' }}>
-            <label className="block mb-2 font-medium">Full Name</label>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => handleChange('name', e.target.value)}
-              placeholder="Enter your full name"
-              className="w-full p-4 border border-[#DEE0E3] rounded-xl"
-            />
-          </div>
+          {/* Centered title */}
+          <h1 className="text-[28px] font-bold text-center text-[#121417] mb-6">
+            My Profile
+          </h1>
 
-          {/* Age */}
-          <div className="mb-4" style={{ width: '480px', height: '112px' }}>
-            <label className="block mb-2 font-medium">Age</label>
-            <input
-              type="number"
-              value={formData.age}
-              onChange={(e) => handleChange('age', e.target.value)}
-              placeholder="Enter your age"
-              className="w-full p-4 border border-[#DEE0E3] rounded-xl"
-            />
-          </div>
+          <p className="ttext-[16px] font-bold text-center text-[#121417] mb-6">Personal Information</p>
 
-          {/* Gender */}
-          <div className="mb-4" style={{ width: '480px', height: '112px' }}>
+          {[
+            { label: 'Full Name', field: 'fullName', type: 'text' },
+            { label: 'Age', field: 'age', type: 'number' },
+            { label: 'Contact Number', field: 'contactNumber', type: 'text' },
+          ].map(({ label, field, type }) => (
+            <div key={field} className="mb-4 w-[480px]">
+              <label className="block mb-2 font-medium">{label}</label>
+              <input
+                type={type}
+                disabled={!isEditable}
+                value={(formData as any)[field]}
+                onChange={(e) => handleChange(field as keyof ProfileFormData, e.target.value)}
+                placeholder={`Enter your ${label.toLowerCase()}`}
+                className="w-full p-4 border border-[#DEE0E3] rounded-xl"
+              />
+            </div>
+          ))}
+
+          <div className="mb-4 w-[480px]">
             <label className="block mb-2 font-medium">Gender</label>
             <select
+              disabled={!isEditable}
               value={formData.gender}
               onChange={(e) => handleChange('gender', e.target.value)}
               className="w-full p-4 border border-[#DEE0E3] rounded-xl"
@@ -106,53 +144,35 @@ const EditPatientForm: React.FC = () => {
             </select>
           </div>
 
-          {/* Contact Number */}
-          <div className="mb-4" style={{ width: '480px', height: '112px' }}>
-            <label className="block mb-2 font-medium">Contact Number</label>
-            <input
-              type="text"
-              value={formData.contactNumber}
-              onChange={(e) => handleChange('contactNumber', e.target.value)}
-              placeholder="Enter your contact number"
-              className="w-full p-4 border border-[#DEE0E3] rounded-xl"
-            />
-          </div>
+          {['conditions', 'allergies'].map((field) => (
+            <div key={field} className="mb-4 w-[480px]">
+              <label className="block mb-2 font-medium">
+                {field === 'conditions' ? 'Existing Conditions' : 'Allergies'}
+              </label>
+              <textarea
+                disabled={!isEditable}
+                value={(formData as any)[field]}
+                onChange={(e) => handleChange(field as keyof ProfileFormData, e.target.value)}
+                placeholder={`Describe your ${field}`}
+                className="w-full p-4 border border-[#DEE0E3] rounded-xl"
+              />
+            </div>
+          ))}
 
-          {/* Conditions */}
-          <div className="mb-4" style={{ width: '480px', height: '112px' }}>
-            <label className="block mb-2 font-medium">Existing Conditions</label>
-            <textarea
-              value={formData.conditions}
-              onChange={(e) => handleChange('conditions', e.target.value)}
-              placeholder="Describe your conditions"
-              className="w-full p-4 border border-[#DEE0E3] rounded-xl"
-            />
-          </div>
-
-          {/* Allergies */}
-          <div className="mb-4" style={{ width: '480px', height: '112px' }}>
-            <label className="block mb-2 font-medium">Allergies</label>
-            <textarea
-              value={formData.allergies}
-              onChange={(e) => handleChange('allergies', e.target.value)}
-              placeholder="Mention any allergies"
-              className="w-full p-4 border border-[#DEE0E3] rounded-xl"
-            />
-          </div>
-
-          {/* Medications */}
           <div className="mb-4">
             <label className="block mb-2 font-medium">Medications</label>
             {formData.medications.map((med, index) => (
-              <div key={index} className="mb-4  p-4 rounded-lg">
+              <div key={index} className="mb-4 p-4 rounded-lg">
                 <div className="flex gap-4 mb-2">
                   <input
+                    disabled={!isEditable}
                     placeholder="Medication Name"
                     value={med.name}
                     onChange={(e) => handleMedicationChange(index, 'name', e.target.value)}
                     className="w-1/2 p-2 border rounded-md border-[#DEE0E3]"
                   />
                   <input
+                    disabled={!isEditable}
                     placeholder="Dosage"
                     value={med.dosage}
                     onChange={(e) => handleMedicationChange(index, 'dosage', e.target.value)}
@@ -161,62 +181,80 @@ const EditPatientForm: React.FC = () => {
                 </div>
                 <div className="flex gap-4">
                   <input
+                    disabled={!isEditable}
                     placeholder="Frequency"
                     value={med.frequency}
                     onChange={(e) => handleMedicationChange(index, 'frequency', e.target.value)}
-                    className="w-1/2 p-2 border rounded-md  border-[#DEE0E3]"
+                    className="w-1/2 p-2 border rounded-md border-[#DEE0E3]"
                   />
                   <input
+                    disabled={!isEditable}
                     placeholder="Reason"
                     value={med.reason}
                     onChange={(e) => handleMedicationChange(index, 'reason', e.target.value)}
-                    className="w-1/2 p-2 border rounded-md  border-[#DEE0E3]"
+                    className="w-1/2 p-2 border rounded-md border-[#DEE0E3]"
                   />
                 </div>
               </div>
             ))}
-            <Button
-              label="Add Medication"
-              onClick={addMedication}
-              bgcolor={Colors.gray}
-              color="#121417"
-              textSize="14px"
-              width="171px"
-              height="40px"
-              padding="0px 16px"
-              className="rounded-lg font-bold mt-2"
-            />
+            {isEditable && (
+              <div className="flex justify-end mt-2">
+                <Button
+                  label="Add Medication"
+                  onClick={addMedication}
+                  bgcolor={Colors.gray}
+                  color="#121417"
+                  textSize="14px"
+                  width="171px"
+                  height="40px"
+                  padding="0px 16px"
+                  className="rounded-lg font-bold"
+                />
+              </div>
+            )}
           </div>
 
-          {/* Save  & Cancel Button */}
-          
-<div className="flex justify-end gap-4 mt-6 self-end">
-  <Button
-    type="button"
-    label="Cancel"
-    onClick={() => console.log('Cancelled')}
-    height="40px"
-    width="160px"
-    padding="0px 16px"
-    bgcolor={Colors.gray}
-    color="#121417"
-    textSize="14px"
-    className="rounded-lg font-bold"
-  />
-  <Button
-    type="button"
-    label="Save"
-    onClick={handleSubmit}
-    height="40px"
-    width="160px"
-    padding="0px 16px"
-    bgcolor={Colors.blue}
-    color="#ffffff"
-    textSize="14px"
-    className="rounded-lg font-bold"
-  />
-</div>
-
+          {/* Bottom right buttons */}
+          <div className="flex justify-end gap-4 mt-8 self-end">
+            {isEditable ? (
+              <>
+                <Button
+                  label="Cancel"
+                  onClick={handleCancel}
+                  height="40px"
+                  width="160px"
+                  padding="0px 16px"
+                  bgcolor={Colors.gray}
+                  color="#121417"
+                  textSize="14px"
+                  className="rounded-lg font-bold"
+                />
+                <Button
+                  label="Save"
+                  onClick={handleSave}
+                  height="40px"
+                  width="160px"
+                  padding="0px 16px"
+                  bgcolor={Colors.blue}
+                  color="#ffffff"
+                  textSize="14px"
+                  className="rounded-lg font-bold"
+                />
+              </>
+            ) : (
+              <Button
+                label="Edit"
+                onClick={() => setIsEditable(true)}
+                height="40px"
+                width="160px"
+                padding="0px 16px"
+                bgcolor={Colors.blue}
+                color="#ffffff"
+                textSize="14px"
+                className="rounded-lg font-bold"
+              />
+            )}
+          </div>
         </div>
       </div>
     </>
