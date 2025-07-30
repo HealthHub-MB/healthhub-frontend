@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import DashboardHeader from '../components/DashboardHeader';
 import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
+import Colors from '../constants/colorConstants';
 
 
 interface RegisterFormData {
   fullName: string;
   email: string;
   password: string;
-  gender: string;
-  contact: string;
-  role: 'Doctor' | 'Patient';
+  role: 'doctor' | 'patient';
 }
 
 const RegisterForm: React.FC = () => {
@@ -17,9 +17,7 @@ const RegisterForm: React.FC = () => {
     fullName: '',
     email: '',
     password: '',
-    gender: '',
-    contact: '',
-    role: 'Patient',
+    role: 'patient',
   });
    const navigate = useNavigate();
 
@@ -28,12 +26,13 @@ const RegisterForm: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleRoleChange = (role: 'Doctor' | 'Patient') => {
+  const handleRoleChange = (role: 'doctor' | 'patient') => {
     setFormData((prev) => ({ ...prev, role }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+  console.log('formData',formData)
   try {
     const response = await fetch('http://localhost:8080/api/users/signup', {
       method: 'POST',
@@ -46,9 +45,9 @@ const RegisterForm: React.FC = () => {
     if (response.ok) {
       alert('Registered successfully!');
       
-      if (formData.role === 'Patient') {
+      if (formData.role === 'patient') {
         navigate('/completeprofile');
-      } else if (formData.role === 'Doctor') {
+      } else if (formData.role === 'doctor') {
         navigate('/doctorprofile');
       }
     } else {
@@ -144,27 +143,38 @@ const RegisterForm: React.FC = () => {
       <div className="flex gap-4">
         <button
           type="button"
-          className={`p-2 px-4 rounded-md ${formData.role === 'Patient' ? 'font-bold':'bg-white'}`}
-          onClick={() => handleRoleChange('Patient')}
+          className={`p-2 px-4 rounded-md ${formData.role === 'patient' ? 'font-bold':'bg-white'}`}
+          onClick={() => handleRoleChange('patient')}
         >
           I am a Patient
         </button>
         <button
           type="button"
-          className={`p-2 px-4 rounded-md ${formData.role === 'Doctor' ? 'font-bold':'bg-white'}`}
-          onClick={() => handleRoleChange('Doctor')}
+          className={`p-2 px-4 rounded-md ${formData.role === 'doctor' ? 'font-bold':'bg-white'}`}
+          onClick={() => handleRoleChange('doctor')}
         >
           I am a Doctor
         </button>
       </div>
 
       {/* Submit Button */}
-      <button
+      {/* <button
         type="submit"
         className="w-full p-3 rounded-md bg-[#94C2F0] font-semibold text-[#121417] hover:bg-blue-400 transition"
       >
         Sign Up
-      </button>
+      </button> */}
+      <Button
+            type="submit"
+            label="Sign Up"
+            height="40px"
+            width="429px"
+            padding="0px 16px"
+            bgcolor={Colors.blue}
+            color="#121417"
+            textSize="14px"
+            //className="bg-sky-500 hover:bg-sky-700"
+          />
     </form>
     </>
   );

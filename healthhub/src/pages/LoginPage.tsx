@@ -106,7 +106,7 @@ const LoginPage : React.FC = () => {
             bgcolor={Colors.blue}
             color="#121417"
             textSize="14px"
-            className="rounded-lg font-bold "
+            //className="bg-sky-500 hover:bg-sky-700"
           />
         </div>
 

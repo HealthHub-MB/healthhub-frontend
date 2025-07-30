@@ -40,7 +40,7 @@ const ManageAvailability: React.FC = () => {
 };
 
   return (<>
-    {/* <DashboardHeader/> */}
+    <DashboardHeader isDoctor={true}/> 
   <div className="flex justify-center items-start px-40 py-5 w-full min-h-screen " >
       <div className="flex flex-col items-start w-[960px] max-w-[960px] h-full">
         {/* Title */}
