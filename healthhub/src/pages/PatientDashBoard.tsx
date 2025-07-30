@@ -27,7 +27,7 @@ const PatientDashboard = () => {
             description="Find and schedule an appointment with a healthcare provider."
             buttonLabel="Book Now"
             imageUrl={one}
-            onButtonClick={() => navigate("/book-appoitments")}
+            onButtonClick={() => navigate("/find-a-doctor")}
           />
         </div>
         <div className="p-4 w-full">
@@ -36,14 +36,16 @@ const PatientDashboard = () => {
             description="Access your health records, including lab results and medications."
             buttonLabel="View Records"
             imageUrl={two}
+            onButtonClick={() => navigate("/patient-health-record")}
           />
         </div>
         <div className="p-4 w-full">
           <DashboardCard
             title="Upcoming Appointments"
             description="View and manage your scheduled appointments."
-            buttonLabel="View Appointments"
+            buttonLabel="View"
             imageUrl={three}
+            onButtonClick={() => navigate("/patient-appoitments")}
           />
         </div>
       </div>

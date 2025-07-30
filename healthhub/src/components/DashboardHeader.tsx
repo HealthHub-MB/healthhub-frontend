@@ -46,7 +46,7 @@ const DashboardHeader = (props) => {
         </>
       )}
 
-      {(isDoctor || isPatient) && (
+      {/* {(isDoctor || isPatient) && (
         <div className="flex justify-end p-4 bg-gray-100">
           <div className="relative" ref={dropdownRef}>
             <img
@@ -58,13 +58,56 @@ const DashboardHeader = (props) => {
             />
             {open && (
               <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-10">
-                <div>My Profile</div>
-                <div>Logout</div>
+                <Link to={"/editPatientFrom"}>My Profile</Link>
+          <Link to={"/"}>Logout</Link>
               </div>
             )}
           </div>
         </div>
+      )} */}
+
+
+      {(isDoctor || isPatient) && (
+  <div className="flex justify-end p-4 bg-gray-100">
+    <div className="relative" ref={dropdownRef}>
+      <img
+        src="src/assets/user.png"
+        width={40}
+        height={40}
+        onClick={handleToggleMenu}
+        className="w-10 h-10 rounded-full cursor-pointer"
+        alt="User"
+      />
+      {open && (
+        <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-10 flex flex-col">
+          {isDoctor && (
+            <Link
+              to="/editDoctorForm"
+              className="px-4 py-2 hover:bg-gray-100 border-b border-gray-200"
+            >
+              My Profile
+            </Link>
+          )}
+          {isPatient && (
+            <Link
+              to="/editPatientFrom"
+              className="px-4 py-2 hover:bg-gray-100 border-b border-gray-200"
+            >
+              My Profile
+            </Link>
+          )}
+          <Link
+            to="/"
+            className="px-4 py-2 hover:bg-gray-100"
+          >
+            Logout
+          </Link>
+        </div>
       )}
+    </div>
+  </div>
+)}
+
 
       {/* Right Button Section */}
       {buttonText != "" && (
