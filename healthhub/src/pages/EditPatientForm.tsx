@@ -61,7 +61,7 @@ const EditPatientForm: React.FC = () => {
 
   return (
     <>
-      <DashboardHeader/>
+      <DashboardHeader isPatient={true}/>
       <div className="flex justify-center items-start px-40 py-5 w-full min-h-screen">
         <div className="flex flex-col w-[960px] max-w-[960px]">
           <h1 className="text-[28px] font-bold text-center text-[#121417] mb-2">My Profile</h1>

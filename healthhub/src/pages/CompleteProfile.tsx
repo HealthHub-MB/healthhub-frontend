@@ -96,7 +96,7 @@ const CompleteProfile = () => {
           <Button
             type="submit"
             label="Save Profile"
-            bgcolor={Colors.gray}
+            bgcolor={Colors.blue}
             color={Colors.black}
             textSize="14px"
             width="114px"

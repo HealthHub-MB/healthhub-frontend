@@ -1,13 +1,13 @@
 import React from 'react'
 import DashboardHeader from '../components/DashboardHeader'
 
-const PatientHealthRecord = () => {
+const Appoitments = () => {
   return (
      <div>
       <DashboardHeader isDoctor={true} />
-      <h1>PatientHealthRecord</h1>
+      <h1> Appoitments</h1>
     </div>
   )
 }
 
-export default PatientHealthRecord
+export default Appoitments
