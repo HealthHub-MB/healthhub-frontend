@@ -4,6 +4,10 @@ import axios from 'axios';
 import DashboardHeader from '../components/DashboardHeader';
 
 const DoctorProfileForm = () => {
+
+
+
+
   const [formData, setFormData] = useState({
     specialization: '',
     gender: '',
@@ -22,8 +26,13 @@ const DoctorProfileForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/doctors/profile', formData); // update this URL
+      const token = localStorage.getItem('token')
+      const response = await axios.post('http://localhost:8080/api/doctors/profile', formData,{
+        headers:{'Authorization' : `Bearer ${token}`,"Content-Type":'application/json'}
+      }); // update this URL
       console.log('Form submitted:', response.data);
+      const { user } = response.data;
+localStorage.setItem("userId", user.id);
     } catch (error) {
       console.error('Error submitting form:', error);
     }
