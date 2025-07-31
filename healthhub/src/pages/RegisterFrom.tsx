@@ -59,6 +59,9 @@ const RegisterForm: React.FC = () => {
   }
 };
 
+
+//this is for dev push
+
  const onButtonClick = () =>{
     console.log("Hello")
     navigate('/');
