@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import DoctorCard from '../components/DoctorCard';
-import DashboardHeader from '../components/DashboardHeader';
+import DoctorCard from '../../components/DoctorCard';
+import DashboardHeader from '../../components/DashboardHeader';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
-import Image from '../constants/imageConstants'
+import Image from '../../constants/imageConstants'
 
 const DoctorsPage: React.FC = () => {
   const [doctors, setDoctors] = useState<any[]>([]);
@@ -15,7 +15,7 @@ const DoctorsPage: React.FC = () => {
 
   const specialtyRef = useRef<HTMLDivElement>(null);
   const availabilityRef = useRef<HTMLDivElement>(null);
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token'); 
 
   // Fetch doctors from backend
   useEffect(() => {
@@ -162,8 +162,9 @@ const DoctorsPage: React.FC = () => {
               name={doctor.userId.fullName}
               bio={doctor.bio}
               specialization={doctor.specialization}
-              imageUrl={Image.user}
-            />
+              imageUrl={Image.user} onViewProfile={function (): void {
+                throw new Error('Function not implemented.');
+              } }            />
           ))}
         </div>
       </div>

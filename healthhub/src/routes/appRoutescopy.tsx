@@ -1,22 +1,22 @@
 import { JSX } from "react";
-import LoginPage from "../pages/LoginPage.tsx";
-import RegisterForm from "../pages/RegisterFrom";
-import DoctorProfileForm from "../pages/DoctorProfileForm";
-import CompleteProfile from "../pages/CompleteProfile";
-import AddMedicalHistory from "../pages/AddMedicalHistory";
-import EditPatientFrom from "../pages/EditPatientForm";
-import EditDoctorForm from "../pages/EditDoctorFrom";
-import AvailabilityManager from "../pages/AvailabilityManager";
-import DoctorDashBoard from "../pages/DocotorDashBoard.tsx";
-import PatientDashBoard from "../pages/PatientDashBoard.tsx";
-import Appoitments from "../pages/Appoitments.tsx";
-import FindADocotor from "../pages/FindADocotor.tsx";
-import BookAppoitments from "../pages/BookAppoitments.tsx";
-import HealthRecords from "../pages/HealthRecords.tsx";
-import PatientAppoitments from "../pages/PatientAppoitments.tsx";
+import LoginPage from "../pages/signuplogin/LoginPage.tsx";
+import RegisterForm from "../pages/signuplogin/RegisterFrom.tsx";
+import DoctorProfileForm from "../pages/signuplogin/DoctorProfileForm.tsx";
+import CompleteProfile from "../pages/signuplogin/CompleteProfile.tsx";
+import AddMedicalHistory from "../pages/signuplogin/AddMedicalHistory.tsx";
+import EditPatientFrom from "../pages/patient/EditPatientForm.tsx";
+import EditDoctorForm from "../pages/doctor/EditDoctorFrom.tsx";
+import AvailabilityManager from "../pages/doctor/AvailabilityManager.tsx";
+import DoctorDashBoard from "../pages/doctor/DocotorDashBoard.tsx";
+import PatientDashBoard from "../pages/patient/PatientDashBoard.tsx";
+import Appoitments from "../pages/doctor/Appoitments.tsx";
+import FindADocotor from "../pages/patient/FindADocotor.tsx";
+import BookAppoitments from "../pages/patient/BookAppoitments.tsx";
+import HealthRecords from "../pages/patient/HealthRecords.tsx";
+import PatientAppoitments from "../pages/patient/PatientAppoitments.tsx";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 import PublicOnlyRoute from "./PublicOnlyRoute.tsx";
-
+import PatientHealthRecord from "../pages/doctor/PatientHealthRecord.tsx"
 export interface AppRoute {
   path: string;
   element: JSX.Element;
@@ -80,6 +80,14 @@ export const appRoutescopy: AppRoute[] = [
     ),
   },
   {
+    path: "/patient-health-record",
+    element: (
+      <ProtectedRoute allowedRoles={["doctor"]}>
+        <PatientHealthRecord />
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: "/availabilityManager",
     element: (
       <ProtectedRoute allowedRoles={["doctor"]}>
@@ -87,15 +95,8 @@ export const appRoutescopy: AppRoute[] = [
       </ProtectedRoute>
     ),
   },
-  {
-    path: "/doctor-dashboard",
-    element: (
-      <PublicOnlyRoute>
-        <DoctorDashBoard />
-      </PublicOnlyRoute>
-    ),
-  },
-  {
+  
+{
     path: "/doctor-dashboardp",
     element: (
       <ProtectedRoute allowedRoles={["doctor"]}>

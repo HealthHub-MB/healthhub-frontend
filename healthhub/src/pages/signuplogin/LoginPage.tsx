@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 import axios from "axios";
-import DashboardHeader from "../components/DashboardHeader";
+import DashboardHeader from "../../components/DashboardHeader";
 import { useNavigate, Link } from "react-router-dom";
-import Colors from "../constants/colorConstants";
+import Colors from "../../constants/colorConstants";
 
 
 
@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
     localStorage.setItem('token', token);
     localStorage.setItem('role', userRole);
     localStorage.setItem('userid', userid);
-    localStorage.setItem('name111', users?.name);
+    localStorage.setItem('name', users?.name);
 
 
    const user = {
