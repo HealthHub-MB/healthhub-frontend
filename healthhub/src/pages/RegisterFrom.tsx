@@ -30,9 +30,63 @@ const RegisterForm: React.FC = () => {
     setFormData((prev) => ({ ...prev, role }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await fetch('http://localhost:8080/api/users/signup', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     const result = await response.json();
+  //     console.log('Signup result:', result);
+
+  //     if (response.ok) {
+  //       alert(result.message || 'Registered successfully!');
+
+  //       const user = result.data?.user;
+  //       const accessToken = result.data?.accessToken;
+  //       const refreshToken = result.data?.refreshToken;
+
+  //       if (user?.id) {
+  //         localStorage.setItem('userid', user.id.toString());
+  //       }
+
+  //       if (accessToken) {
+  //         localStorage.setItem('token', accessToken);
+  //       }
+
+  //       if (refreshToken) {
+  //         localStorage.setItem('refreshToken', refreshToken);
+  //       }
+
+  //       // Navigate based on role
+  //       if (user?.role === 'patient') {
+  //         navigate('/completeprofile');
+  //       } else if (user?.role === 'doctor') {
+  //         navigate('/doctorprofile');
+  //       }
+  //     } else {
+  //       alert(result.message || 'Registration failed.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Signup error:', error);
+  //     alert('Something went wrong.');
+  //   }
+  // };
+
+
+//this is for dev push
+
+
+
+
+const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
-  console.log('formData',formData)
+
   try {
     const response = await fetch('http://localhost:8080/api/users/signup', {
       method: 'POST',
@@ -41,26 +95,41 @@ const RegisterForm: React.FC = () => {
     });
 
     const result = await response.json();
+    console.log('Signup result:', result);
 
     if (response.ok) {
-      alert('Registered successfully!');
-      
-      if (formData.role === 'patient') {
-        navigate('/completeprofile');
-      } else if (formData.role === 'doctor') {
-        navigate('/doctorprofile');
+      const user = result.data?.user;
+      const accessToken = result.data?.accessToken;
+      const refreshToken = result.data?.refreshToken;
+
+      if (user?.id) {
+        localStorage.setItem('userid', user.id.toString());
+      }
+
+      if (accessToken) {
+        localStorage.setItem('token', accessToken);
+      }
+
+      if (refreshToken) {
+        localStorage.setItem('refreshToken', refreshToken);
+      }
+
+      alert(result.message || 'Registered and logged in successfully!');
+
+      // ✅ Redirect to dashboard based on role
+      if (user?.role === 'patient') {
+        navigate('/completeProfile');
+      } else if (user?.role === 'doctor') {
+        navigate('/doctorProfileForm');
       }
     } else {
-      alert(result.message || 'Registration failed');
+      alert(result.message || 'Registration failed.');
     }
   } catch (error) {
-    console.error(error);
-    alert('An error occurred');
+    console.error('Signup error:', error);
+    alert('Something went wrong.');
   }
 };
-
-
-//this is for dev push
 
  const onButtonClick = () =>{
     console.log("Hello")
@@ -160,13 +229,7 @@ const RegisterForm: React.FC = () => {
         </button>
       </div>
 
-      {/* Submit Button */}
-      {/* <button
-        type="submit"
-        className="w-full p-3 rounded-md bg-[#94C2F0] font-semibold text-[#121417] hover:bg-blue-400 transition"
-      >
-        Sign Up
-      </button> */}
+   
       <Button
             type="submit"
             label="Sign Up"
@@ -176,7 +239,7 @@ const RegisterForm: React.FC = () => {
             bgcolor={Colors.blue}
             color="#121417"
             textSize="14px"
-            //className="bg-sky-500 hover:bg-sky-700"
+            
           />
     </form>
     </>

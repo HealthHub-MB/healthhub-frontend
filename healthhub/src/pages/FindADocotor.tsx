@@ -1,38 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import DoctorCard from '../components/DoctorCard';
 import DashboardHeader from '../components/DashboardHeader';
-import Image from '../constants/imageConstants';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
+import Image from '../constants/imageConstants'
 
 const DoctorsPage: React.FC = () => {
-  const doctors = [
-    {
-      name: 'Dr. Emily Carter',
-      bio: 'Board-certified cardiologist with over 15 years of experience in non-invasive procedures.',
-      specialization: 'Cardiology',
-      imageUrl: Image.user,
-    },
-    {
-      name: 'Dr. David Lee',
-      bio: 'Leading dermatologist specializing in medical and cosmetic dermatology.',
-      specialization: 'Dermatology',
-      imageUrl: Image.user,
-    },
-    {
-      name: 'Dr. Sarah Johnson',
-      bio: 'Dedicated pediatrician focusing on preventive care and developmental milestones.',
-      specialization: 'Pediatrics',
-      imageUrl: Image.user,
-    },
-    {
-      name: 'Dr. Michael Brown',
-      bio: 'Orthopedic surgeon skilled in sports injuries and joint replacements.',
-      specialization: 'Orthopedics',
-      imageUrl: Image.user,
-    },
-  ];
-
+  const [doctors, setDoctors] = useState<any[]>([]);
   const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>(null);
   const [showSpecialtyDropdown, setShowSpecialtyDropdown] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -40,6 +15,24 @@ const DoctorsPage: React.FC = () => {
 
   const specialtyRef = useRef<HTMLDivElement>(null);
   const availabilityRef = useRef<HTMLDivElement>(null);
+  const token = localStorage.getItem('token');
+
+  // Fetch doctors from backend
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/doctors',{
+        headers: { Authorization: `Bearer ${token}` },
+      }); 
+        console.log("response",response)
+        setDoctors(response.data.doctors.data); // Adjusted to match your API shape
+      } catch (error) {
+        console.error('Failed to fetch doctors:', error);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
 
   const allSpecialties = [...new Set(doctors.map((doc) => doc.specialization))];
 
@@ -49,7 +42,6 @@ const DoctorsPage: React.FC = () => {
 
   const fullyFilteredDoctors = selectedDate
     ? filteredDoctors.filter((doc) => {
-        // Replace with real availability filtering logic
         return true;
       })
     : filteredDoctors;
@@ -62,7 +54,6 @@ const DoctorsPage: React.FC = () => {
       ) {
         setShowSpecialtyDropdown(false);
       }
-
       if (
         availabilityRef.current &&
         !availabilityRef.current.contains(event.target as Node)
@@ -72,20 +63,16 @@ const DoctorsPage: React.FC = () => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
     <>
       <DashboardHeader isPatient={true} />
       <div className="flex flex-col items-center px-40 py-5 bg-white min-h-screen gap-5">
-        {/* Search bar and filter section */}
         <div className="flex flex-col items-start w-[960px] bg-white rounded-lg">
           {/* Search */}
           <div className="flex flex-row items-center w-full h-[48px] rounded-[12px] bg-[#F0F2F5] overflow-hidden">
-            <div className="w-[40px] h-[48px] flex justify-center items-center px-4 bg-[#F0F2F5] rounded-l-[12px]"></div>
             <input
               type="text"
               placeholder="Search for doctors, specialties, or conditions"
@@ -95,7 +82,7 @@ const DoctorsPage: React.FC = () => {
 
           {/* Filters */}
           <div className="flex flex-row flex-wrap gap-3 py-3 relative">
-            {/* Specialty filter with dropdown */}
+            {/* Specialty Filter */}
             <div className="relative" ref={specialtyRef}>
               <div
                 onClick={() => setShowSpecialtyDropdown(!showSpecialtyDropdown)}
@@ -103,9 +90,8 @@ const DoctorsPage: React.FC = () => {
               >
                 {selectedSpecialty || 'Specialty'}
               </div>
-
               {showSpecialtyDropdown && (
-                <div className="absolute z-10 mt-2 w-40 bg-white rounded-lg ">
+                <div className="absolute z-10 mt-2 w-40 bg-white rounded-lg shadow-md">
                   <div
                     className="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
@@ -131,7 +117,7 @@ const DoctorsPage: React.FC = () => {
               )}
             </div>
 
-            {/* Availability filter with calendar */}
+            {/* Availability Filter */}
             <div className="relative" ref={availabilityRef}>
               <div
                 onClick={() => setShowAvailabilityDropdown(!showAvailabilityDropdown)}
@@ -139,9 +125,8 @@ const DoctorsPage: React.FC = () => {
               >
                 {selectedDate ? selectedDate.toDateString() : 'Availability'}
               </div>
-
               {showAvailabilityDropdown && (
-                <div className="absolute z-10 mt-2 bg-white rounded-lg p-3">
+                <div className="absolute z-10 mt-2 bg-white rounded-lg p-3 shadow-md">
                   <DatePicker
                     selected={selectedDate}
                     onChange={(date) => {
@@ -164,21 +149,20 @@ const DoctorsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Section title */}
           <div className="pt-3 pb-2 w-full">
             <h2 className="text-[22px] font-bold text-[#121417]">Doctors</h2>
           </div>
         </div>
 
-        {/* Doctor cards list */}
+        {/* Doctor Cards */}
         <div className="flex flex-col gap-4">
           {fullyFilteredDoctors.map((doctor, index) => (
             <DoctorCard
               key={index}
-              name={doctor.name}
+              name={doctor.userId.fullName}
               bio={doctor.bio}
               specialization={doctor.specialization}
-              imageUrl={doctor.imageUrl}
+              imageUrl={Image.user}
             />
           ))}
         </div>

@@ -32,7 +32,7 @@ const DashboardHeader = (props) => {
       {/* Left Logo Section */}
      <div className="flex items-center gap-4">
   <Link
-    to={isDoctor ? "/doctor-dashboard" : isPatient ? "/patient-dashboard" : "/"}
+    to={isDoctor ? "/doctor-dashboardp" : isPatient ? "/patient-dashboardp" : "/"}
     className="flex items-center gap-4"
   >
     {/* Icon Placeholder */}
@@ -44,14 +44,14 @@ const DashboardHeader = (props) => {
 
       {isDoctor && (
         <>
-          <Link to={"/doctor-dashboard"}>Dashboard</Link>
+          <Link to={"/doctor-dashboardp"}>Home</Link>
           <Link to={"/appoitments"}>Appoitements</Link>
         </>
       )}
 
       {isPatient && (
         <>
-          <Link to={"/patient-dashboard"}>Home</Link>
+          <Link to={"/patient-dashboardp"}>Home</Link>
           <Link to={"/find-a-doctor"}>Find a doctor</Link>
         </>
       )}

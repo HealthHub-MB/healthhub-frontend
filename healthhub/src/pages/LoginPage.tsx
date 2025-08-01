@@ -37,6 +37,9 @@ const LoginPage: React.FC = () => {
    const userRole = users?.role;
       const token = response.data?.data?.accessToken;
       const userid =users?.id;
+      const name = users?.name;
+
+      console.log("name",name)
 
 
     console.log('User role:', userRole,userid);
@@ -44,6 +47,8 @@ const LoginPage: React.FC = () => {
     localStorage.setItem('token', token);
     localStorage.setItem('role', userRole);
     localStorage.setItem('userid', userid);
+    localStorage.setItem('name111', users?.name);
+
 
    const user = {
   token,
@@ -52,9 +57,9 @@ const LoginPage: React.FC = () => {
 localStorage.setItem("user", JSON.stringify(user));
 
 if (userRole === "doctor") {
-  navigate("/doctor-dashboard");
+  navigate("/doctor-dashboardp");
 } else if (userRole === "patient") {
-  navigate("/patient-dashboard");
+  navigate("/patient-dashboardp");
 }
   } catch (err: any) {
     console.error('Login error:', err);
