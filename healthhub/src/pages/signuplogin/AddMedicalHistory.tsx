@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Button from "../components/Button"; // Adjust path as needed
+import Button from "../../components/Button"; // Adjust path as needed
 import axios from "axios"; // You must install axios with: npm install axios
-import DashboardHeader from "../components/DashboardHeader";
-import Colors from "../constants/colorConstants";
+import DashboardHeader from "../../components/DashboardHeader";
+import Colors from "../../constants/colorConstants";
 import { useNavigate } from "react-router-dom";
 
 const AddMedicalHistory: React.FC = () => {
@@ -48,7 +48,8 @@ const AddMedicalHistory: React.FC = () => {
       );
       console.log("Saved successfully:", response.data);
       alert("Data saved successfully!");
-      navigate("/patient-dashboard");
+      navigate("/");
+      localStorage.clear()
     } catch (error) {
       console.error("Error saving data:", error);
       alert("Failed to save data.");

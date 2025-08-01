@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import DashboardHeader from '../components/DashboardHeader';
+import DashboardHeader from '../../components/DashboardHeader';
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
-import Colors from '../constants/colorConstants';
+import Button from '../../components/Button';
+import Color from '../../constants/colorConstants'
+import Colors from '../../constants/colorConstants';
 
 
 interface RegisterFormData {
@@ -29,57 +30,6 @@ const RegisterForm: React.FC = () => {
   const handleRoleChange = (role: 'doctor' | 'patient') => {
     setFormData((prev) => ({ ...prev, role }));
   };
-
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const response = await fetch('http://localhost:8080/api/users/signup', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     const result = await response.json();
-  //     console.log('Signup result:', result);
-
-  //     if (response.ok) {
-  //       alert(result.message || 'Registered successfully!');
-
-  //       const user = result.data?.user;
-  //       const accessToken = result.data?.accessToken;
-  //       const refreshToken = result.data?.refreshToken;
-
-  //       if (user?.id) {
-  //         localStorage.setItem('userid', user.id.toString());
-  //       }
-
-  //       if (accessToken) {
-  //         localStorage.setItem('token', accessToken);
-  //       }
-
-  //       if (refreshToken) {
-  //         localStorage.setItem('refreshToken', refreshToken);
-  //       }
-
-  //       // Navigate based on role
-  //       if (user?.role === 'patient') {
-  //         navigate('/completeprofile');
-  //       } else if (user?.role === 'doctor') {
-  //         navigate('/doctorprofile');
-  //       }
-  //     } else {
-  //       alert(result.message || 'Registration failed.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Signup error:', error);
-  //     alert('Something went wrong.');
-  //   }
-  // };
-
-
-//this is for dev push
 
 
 

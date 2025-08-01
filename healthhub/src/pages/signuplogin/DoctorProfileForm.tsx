@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Button from "../components/Button"; // adjust the path as needed
+import Button from "../../components/Button"; // adjust the path as needed
 import axios from "axios";
-import DashboardHeader from "../components/DashboardHeader";
+import DashboardHeader from "../../components/DashboardHeader";
 import { useNavigate } from "react-router-dom";
 
 const DoctorProfileForm = () => {
@@ -101,8 +101,9 @@ const handleSubmit = async (e: React.FormEvent) => {
 
     console.log("Form submitted:", response.data);
 
-    // Navigate to doctor dashboard
-    navigate("/doctor-dashboard");
+    alert("profile creted succefully")
+    navigate("/");
+    localStorage.clear()
   } catch (error) {
     console.error("Error submitting form:", error);
   }
@@ -114,7 +115,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   return (
     <>
-      <DashboardHeader />
+      <DashboardHeader isDoctor={true}/>
       <div className="flex justify-center items-start px-40 py-5 w-full max-w-[1280px] mx-auto ">
         <form
           onSubmit={handleSubmit}
@@ -201,6 +202,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               type="text"
               name="phoneNumber"
               placeholder="Enter your phone number"
+                maxLength={10}
               value={formData.phoneNumber}
               onChange={handleChange}
               className="w-full px-4 py-4 border border-[#DBE0E6] rounded-[12px] text-[#121417] placeholder-[#637587] text-[16px]"

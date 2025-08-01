@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Button from '../components/Button';
-import Colors from '../constants/colorConstants';
-import DashboardHeader from '../components/DashboardHeader';
+import Button from '../../components/Button';
+import Colors from '../../constants/colorConstants';
+import DashboardHeader from '../../components/DashboardHeader';
 
 interface Medication {
   name: string;
@@ -43,17 +43,19 @@ const EditPatientForm: React.FC = () => {
       })
       .then((res) => {
         const data = res?.data?.data;
+        console.log('data',data)
         const fetchedData: ProfileFormData = {
-          fullName: data?.userId?.fullName || '',
+          fullName: localStorage.getItem('name')|| '',
           age: data?.age || '',
           gender: data?.gender || '',
           contactNumber: data?.contactNumber || '',
-          conditions: data?.conditions || '',
-          allergies: data?.allergies || '',
-          medications: data?.medications?.length
-            ? data.medications
+          conditions: data?.medicalHistory?.condition || '',
+          allergies: data?.medicalHistory?.allergies || '',
+          medications: data?.medicalHistory?.medications?.length
+            ? data?.medicalHistory?.medications
             : [{ name: '', dosage: '', frequency: '', reason: '' }],
         };
+        console.log("getapidata:",fetchedData)
         setFormData(fetchedData);
         setOriginalData(fetchedData);
       })
@@ -81,12 +83,13 @@ const EditPatientForm: React.FC = () => {
 
   const handleSave = async () => {
     try {
-      await axios.put('http://localhost:8080/api/user/profile', formData, {
+      await axios.put('http://localhost:8080/api/patients/profile', formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert('Medical history updated successfully!');
       setIsEditable(false);
       setOriginalData(formData);
+      localStorage.setItem('name', formData.fullName)
     } catch (error) {
       console.error('Error updating profile:', error);
       alert('Failed to update medical history.');
