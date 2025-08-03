@@ -16,7 +16,8 @@ const PatientDashboard: React.FC = () => {
   return (
     <>
       <DashboardHeader isPatient={true} />
-      <div className="flex flex-col items-start px-[120px] py-[20px]">
+      <div className="w-full min-h-screen flex justify-center items-center bg-white">
+<div className="w-[1280px] h-[739px] px-[160px] py-[1px] opacity-100 ">
         {/* Header */}
         <div className="flex flex-wrap justify-between items-start content-start p-4 gap-3 w-full h-[72px]">
           <h1 className="text-[#121417] text-[32px] font-bold leading-[40px]">
@@ -54,6 +55,7 @@ const PatientDashboard: React.FC = () => {
             />
           </div>
         </div>
+      </div>
       </div>
     </>
   );

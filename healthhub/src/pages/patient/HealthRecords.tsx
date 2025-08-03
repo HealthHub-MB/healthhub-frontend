@@ -80,7 +80,8 @@ const HealthRecords: React.FC = () => {
   return (
     <>
       <DashboardHeader isPatient={true} />
-      <div className="flex flex-row justify-center items-start px-40 py-5 w-[1280px] h-[777px]">
+     <div className="w-full min-h-screen flex justify-center items-center bg-white">
+  <div className="w-[1280px] h-[777px] px-[160px] py-[20px]">
         <div className="flex flex-col items-start w-[960px] max-w-[960px] h-[738px]">
           {/* Header Section */}
           <div className="flex flex-wrap justify-between items-start content-start p-4 gap-3 w-full h-[105px]">
@@ -178,6 +179,7 @@ const HealthRecords: React.FC = () => {
               )}
             </div>
           </div>
+        </div>
         </div>
       </div>
     </>

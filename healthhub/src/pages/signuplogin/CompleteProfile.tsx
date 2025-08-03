@@ -171,7 +171,7 @@ const CompleteProfile = () => {
           {/* Add Medical History Button */}
           <div className="flex justify-center items-start px-4 py-3 w-full">
             <Button
-              label="Add Medical History"
+              label="Medical History"
               onClick={handleAddMedicalHistory}
               bgcolor={Colors.gray}
               color={Colors.black}

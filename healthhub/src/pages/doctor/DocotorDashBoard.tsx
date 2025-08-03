@@ -77,7 +77,7 @@ const DoctorDashboard = () => {
     <>
       <DashboardHeader isDoctor={true} />
       <div className="w-full min-h-screen bg-white">
-        <div className="px-40 py-6">
+      <div className="w-[1280px] h-[735px] px-[160px] py-[20px] mx-auto">
           <div className="flex justify-between items-center mb-6">
             <p className="text-4xl font-bold text-[#121417]">Welcome Back, {name}</p>
           </div>
