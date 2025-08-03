@@ -134,7 +134,7 @@ const DoctorsPage: React.FC = () => {
                 {selectedDate ? selectedDate.toDateString() : 'Availability'}
               </div>
               {showAvailabilityDropdown && (
-                <div className="absolute z-10 mt-2 bg-white rounded-lg p-3 shadow-md">
+                <div className="absolute z-10 mt-2 bg-white rounded-lg p-3 ">
                   <DatePicker
                     selected={selectedDate}
                     onChange={(date) => {

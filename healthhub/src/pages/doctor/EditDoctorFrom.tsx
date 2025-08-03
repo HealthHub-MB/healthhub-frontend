@@ -190,7 +190,7 @@ const EditDoctorForm: React.FC = () => {
               <Button
                 label="Edit"
                 onClick={() => setIsEditing(true)}
-                width="140px"
+                width="150px"
                 height="40px"
                 bgcolor={Colors.blue}
                 color="#ffffff"
@@ -202,7 +202,7 @@ const EditDoctorForm: React.FC = () => {
                 <Button
                   label="Cancel"
                   onClick={() => setIsEditing(false)}
-                  width="140px"
+                  width="150px"
                   height="40px"
                   bgcolor={Colors.gray}
                   color="#121417"
@@ -212,7 +212,7 @@ const EditDoctorForm: React.FC = () => {
                 <Button
                   label="Save"
                   onClick={handleSave}
-                  width="140px"
+                  width="150px"
                   height="40px"
                   bgcolor={Colors.blue}
                   color="#ffffff"

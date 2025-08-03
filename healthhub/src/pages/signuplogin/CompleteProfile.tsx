@@ -176,7 +176,7 @@ const CompleteProfile = () => {
               bgcolor={Colors.gray}
               color={Colors.black}
               textSize="14px"
-              width="171px"
+              width="150px"
               height="40px"
               padding="0px 16px"
               className="rounded-[12px] font-bold"
@@ -192,7 +192,7 @@ const CompleteProfile = () => {
               bgcolor={Colors.blue}
               color={Colors.black}
               textSize="14px"
-              width="114px"
+              width="150px"
               height="40px"
               padding="0px 16px"
               className="rounded-[12px] font-bold"

@@ -14,37 +14,40 @@ interface Doctor {
     fullName: string;
     email: string;
   };
-  slots: Slot[];
-}
-
-interface Slot {
-  id: number;
-  weekDay: string;
-  startTime: string;
-  endTime: string;
-  isBooked: boolean;
 }
 
 const ViewDoctorDetails: React.FC = () => {
   const { doctorId } = useParams();
   const [doctor, setDoctor] = useState<Doctor | null>(null);
 
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (!doctorId || !token) return;
+
+  //  const res =  axios
+  //     .get(`http://localhost:8080/api/doctors/${doctorId}/profile`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((res) => setDoctor(res.data.data))
+  //     .catch((err) => console.error(err));
+  // }, [doctorId]);
+
+
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!doctorId || !token) return;
+  const token = localStorage.getItem('token');
+  if (!doctorId || !token) return;
 
-    axios
-      .get(`http://localhost:8080/api/doctors/${doctorId}/profile`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        console.log("doctor",res.data.data);
-        
-        setDoctor(res.data.data)})
-      .catch((err) => console.error("Error fetching doctor:", err.response?.data || err.message));
-  }, [doctorId]);
-
+  axios
+    .get(`http://localhost:8080/api/doctors/${doctorId}/profile`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      console.log('Doctor profile response:', res); // ✅ log response here
+      setDoctor(res.data.data);
+    })
+    .catch((err) => console.error(err));
+}, [doctorId]);
 
   return (
     <>
@@ -52,17 +55,15 @@ const ViewDoctorDetails: React.FC = () => {
       <div className="max-w-4xl mx-auto px-6 py-10 text-gray-800">
         {doctor ? (
           <>
-            {/* Breadcrumb */}
-            <div className="text-sm text-gray-500 mb-4">
-              <span>Find a Doctor</span> /{' '}
-              <span className="text-black font-medium">Dr. {doctor.userId.fullName}</span>
-            </div>
-
             {/* Doctor Info */}
             <div className="flex items-center gap-6 mb-6">
-              <img src={Image.user} alt="Doctor Avatar" className="w-20 h-20 rounded-full object-cover" />
+              <img
+                src={Image.user}
+                alt="Doctor Avatar"
+                className="w-20 h-20 rounded-full object-cover"
+              />
               <div>
-                <h1 className="text-2xl font-bold mb-1">Dr. {doctor.userId.fullName}</h1>
+                <h1 className="text-2xl font-bold mb-1">{doctor.userId.fullName}</h1>
                 <p className="text-blue-600 text-sm">{doctor.specialization}</p>
                 <p className="text-sm text-gray-500">{doctor.officeAddress}</p>
               </div>
@@ -92,8 +93,6 @@ const ViewDoctorDetails: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            
           </>
         ) : (
           <p className="text-gray-500">Loading doctor profile...</p>

@@ -184,7 +184,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             type="submit"
             label="Sign Up"
             height="40px"
-            width="429px"
+            width="150px"
             padding="0px 16px"
             bgcolor={Colors.blue}
             color="#121417"

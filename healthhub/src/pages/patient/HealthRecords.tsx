@@ -110,6 +110,8 @@ const HealthRecords: React.FC = () => {
                   label="Upload Files"
                   bgcolor={Color.gray}
                   color={Color.black}
+                  height="40px"
+              width="150px"
                   padding="0.5rem 1rem"
                   textSize="0.875rem"
                   className="font-bold cursor-pointer"
@@ -161,6 +163,8 @@ const HealthRecords: React.FC = () => {
                               label="View"
                               onClick={() => handleView(record.filePath)}
                               bgcolor={Color.blue}
+                              height="40px"
+              width="150px"
                               color="white"
                               padding="0.25rem 0.75rem"
                               textSize="0.875rem"

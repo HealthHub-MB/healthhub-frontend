@@ -161,7 +161,7 @@ if (userRole === "doctor") {
               type="submit"
               label="Log In"
               height="40px"
-              width="429px"
+              width="150px"
               padding="0px 16px"
               bgcolor={Colors.blue}
               color="#121417"

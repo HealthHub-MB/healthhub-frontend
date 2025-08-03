@@ -162,7 +162,9 @@ const AddMedicalHistory: React.FC = () => {
                 bgcolor={Colors.gray}
                 color={Colors.black}
                 textSize="14px"
-                width="fit-content"
+                //width="fit-content"
+                height="40px"
+              width="150px"
                 padding="0px 16px"
                 className="rounded-[12px] font-bold"
                 onClick={handleAddMedication}
@@ -177,7 +179,7 @@ const AddMedicalHistory: React.FC = () => {
               bgcolor={Colors.gray}
               color={Colors.black}
               textSize="14px"
-              width="114px"
+              width="150px"
               height="40px"
               padding="0px 16px"
               className="rounded-[12px] font-bold"
@@ -187,7 +189,7 @@ const AddMedicalHistory: React.FC = () => {
               bgcolor={Colors.blue}
               color={Colors.black}
               textSize="14px"
-              width="114px"
+              width="150px"
               height="40px"
               padding="0px 16px"
               className="rounded-[12px] font-bold"

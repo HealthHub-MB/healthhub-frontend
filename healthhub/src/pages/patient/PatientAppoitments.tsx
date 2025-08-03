@@ -91,11 +91,19 @@ const MyAppointments: React.FC = () => {
             </p>
           </div>
         </div>
-        <button className="px-4 py-1 text-sm bg-gray-100 rounded-md hover:bg-gray-200" onClick={()=>{
-          navigate("/appoitment-slot/:doctorId")
-        }}>
-          View Details
-        </button>
+       <button
+  onClick={() => {
+    navigate(`/view-doctor-details/${doctorId.id}`);
+  }}
+  className="text-white px-6 py-2 rounded text-sm hover:opacity-90"
+  style={{
+    backgroundColor: "#94C2F0",
+    height: "40px",
+    width: "150px",
+  }}
+>
+  View Details
+</button>
       </div>
     );
   }

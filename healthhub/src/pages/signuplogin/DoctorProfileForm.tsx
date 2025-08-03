@@ -236,7 +236,8 @@ if (data && data.userId) {
             <Button
               type="submit"
               label="Submit"
-              width="480px"
+              width="150px"
+              height="40px"
               padding="0.75rem 2rem"
               bgcolor="#94C2F0"
               color="#121417"
