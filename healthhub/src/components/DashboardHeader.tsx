@@ -56,7 +56,7 @@ const DashboardHeader = (props) => {
         </>
       )}
     {(isDoctor || isPatient) && (
-  <div className="flex justify-end p-4 bg-gray-100">
+  <div className="flex justify-end p-4 ">
     <div className="relative" ref={dropdownRef}>
       <img
         src="src/assets/user.png"

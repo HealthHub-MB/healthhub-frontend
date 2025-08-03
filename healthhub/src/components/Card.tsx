@@ -16,7 +16,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   onButtonClick,
 }) => {
   return (
-    <div className="flex flex-col items-start p-4  h-[203px]">
+    <div className="flex flex-col items-start p-4  h-[203px] w-[960]">
       <div className="flex flex-row justify-between items-start gap-4 h-[171px] rounded-[12px] w-full">
         {/* Text Section */}
         <div className="flex flex-col gap-4 w-[608px] h-[171px]">

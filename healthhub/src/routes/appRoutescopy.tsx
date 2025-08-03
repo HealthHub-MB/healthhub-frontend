@@ -17,6 +17,9 @@ import PatientAppoitments from "../pages/patient/PatientAppoitments.tsx";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 import PublicOnlyRoute from "./PublicOnlyRoute.tsx";
 import PatientHealthRecord from "../pages/doctor/PatientHealthRecord.tsx"
+import DoctorAvailability from "../pages/doctor/DoctorAvailability.tsx";
+import AppoitmentSlots from "../pages/patient/AppoitmentSlots.tsx";
+import ViewDoctorDetails from "../pages/patient/ViewDoctorDetails.tsx";
 export interface AppRoute {
   path: string;
   element: JSX.Element;
@@ -79,14 +82,15 @@ export const appRoutescopy: AppRoute[] = [
       </ProtectedRoute>
     ),
   },
-  {
-    path: "/patient-health-record",
-    element: (
-      <ProtectedRoute allowedRoles={["doctor"]}>
-        <PatientHealthRecord />
-      </ProtectedRoute>
-    ),
-  },
+ {
+  path: "/patient-health-record/:patientId",
+  element: (
+    <ProtectedRoute allowedRoles={["doctor"]}>
+      <PatientHealthRecord />
+    </ProtectedRoute>
+  ),
+},
+
   {
     path: "/availabilityManager",
     element: (
@@ -105,6 +109,14 @@ export const appRoutescopy: AppRoute[] = [
     ),
   },
   {
+    path: "/doctor-availability",
+    element: (
+      <ProtectedRoute allowedRoles={["doctor"]}>
+        <DoctorAvailability availabilityData={undefined} />
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: "/patient-dashboard",
     element: (
       <PublicOnlyRoute>
@@ -117,6 +129,14 @@ export const appRoutescopy: AppRoute[] = [
     element: (
       <ProtectedRoute allowedRoles={["patient"]}>
         <PatientDashBoard />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/appoitment-slot/:doctorId",
+    element: (
+      <ProtectedRoute allowedRoles={["patient"]}>
+        <AppoitmentSlots />
       </ProtectedRoute>
     ),
   },
@@ -160,4 +180,15 @@ export const appRoutescopy: AppRoute[] = [
       </ProtectedRoute>
     ),
   },
+   {
+    path: "/view-doctor-details/:doctorId",
+    element: (
+      <ProtectedRoute allowedRoles={["patient"]}>
+        <ViewDoctorDetails />
+      </ProtectedRoute>
+    ),
+  },
 ];
+
+
+

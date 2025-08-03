@@ -24,90 +24,98 @@ const DoctorProfileForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   try {
-  //     const userIdRaw = localStorage.getItem("userid");
-  //     const token = localStorage.getItem("token");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const userIdRaw = localStorage.getItem("userid");
+      const token = localStorage.getItem("token");
 
-  //     console.log("userId =", userIdRaw);
-  //     console.log("token =", token);
+      console.log("userId =", userIdRaw);
+      console.log("token =", token);
 
-  //     const user_Id = userIdRaw ? parseInt(userIdRaw) : null;
-  //     if (!user_Id) {
-  //       console.error("User ID not found in localStorage.");
-  //       return;
-  //     }
-
-  //     const payload = {
-  //       ...formData,
-  //       userId:user_Id,
-  //     };
-
-  //     console.log("Submitting:", payload);
-
-  //     const response = await axios.post(
-  //       "http://localhost:8080/api/doctors/profile",
-  //       formData,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     ); // update this URL
-  //     console.log("Form submitted:", response.data);
-  //     const { userId } = response.data;
-
-  //     localStorage.setItem("userId", userId.id);
-
-  //   } catch (error) {
-  //     console.error("Error submitting form:", error);
-  //   }
-  // };
-
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  try {
-    const userIdRaw = localStorage.getItem("userid");
-    const token = localStorage.getItem("token");
-
-    console.log("userId =", userIdRaw);
-    console.log("token =", token);
-
-    const userId = userIdRaw ? parseInt(userIdRaw) : null;
-    if (!userId) {
-      console.error("User ID not found in localStorage.");
-      return;
-    }
-
-    const payload = {
-      ...formData,
-      userId,
-    };
-
-    console.log("Submitting:", payload);
-
-    const response = await axios.post(
-      "http://localhost:8080/api/doctors/profile",
-      payload,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+      const user_Id = userIdRaw ? parseInt(userIdRaw) : null;
+      if (!user_Id) {
+        console.error("User ID not found in localStorage.");
+        return;
       }
-    );
 
-    console.log("Form submitted:", response.data);
+      const payload = {
+        ...formData,
+        userId:user_Id,
+      };
 
-    alert("profile creted succefully")
-    navigate("/");
-    localStorage.clear()
-  } catch (error) {
-    console.error("Error submitting form:", error);
-  }
-};
+      console.log("Submitting:", payload);
+
+      const response = await axios.post(
+        "http://localhost:8080/api/doctors/profile",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      // console.log("Form submitted:", response.data);
+      // const { userId } = response.data;
+
+      console.log("Form submitted:", response.data);
+       navigate('/doctor-dashboardp')
+const { data } = response.data;
+
+if (data && data.userId) {
+  localStorage.setItem("userId", data.userId.toString());
+}
+
+      localStorage.setItem("userId", userId.id);
+     
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
+
+//   e.preventDefault();
+//   try {
+//     const userIdRaw = localStorage.getItem("userid");
+//     const token = localStorage.getItem("token");
+
+//     console.log("userId =", userIdRaw);
+//     console.log("token =", token);
+
+//     const userId = userIdRaw ? parseInt(userIdRaw) : null;
+//     if (!userId) {
+//       console.error("User ID not found in localStorage.");
+//       return;
+//     }
+
+//     const payload = {
+//       ...formData,
+//       userId,
+//     };
+
+//     console.log("Submitting:", payload);
+
+//     const response = await axios.post(
+//       "http://localhost:8080/api/doctors/profile",
+//       payload,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+
+//     console.log("Form submitted:", response.data);
+
+//     alert("profile creted succefully")
+//     navigate("/");
+//     localStorage.clear()
+//   } catch (error) {
+//     console.error("Error submitting form:", error);
+//   }
+// };
 
 
 
@@ -199,7 +207,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               Phone Number
             </label>
             <input
-              type="text"
+              type="number"
               name="phoneNumber"
               placeholder="Enter your phone number"
                 maxLength={10}
