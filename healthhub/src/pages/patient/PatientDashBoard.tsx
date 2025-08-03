@@ -50,7 +50,7 @@ const PatientDashboard: React.FC = () => {
               description="View and manage your scheduled appointments."
               buttonLabel="View"
               imageUrl={Image.three}
-              onButtonClick={() => navigate('/patient-appointments')}
+              onButtonClick={() => navigate('/patient-appoitments')}
             />
           </div>
         </div>

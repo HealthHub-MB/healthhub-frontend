@@ -5,14 +5,7 @@ import DashboardHeader from "../../components/DashboardHeader";
 import { useNavigate, Link } from "react-router-dom";
 import Colors from "../../constants/colorConstants";
 
-
-
 const LoginPage: React.FC = () => {
-
-
-  
-
-
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
