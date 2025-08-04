@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 import Image from "../constants/imageConstants";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +26,7 @@ interface AppointmentCardProps {
   showActions?: boolean;
   onAccept?: () => void;
   onDecline?: () => void;
+  isLoading? : boolean;
 }
 
 const AppointmentCard: React.FC<AppointmentCardProps> = ({
@@ -33,10 +34,13 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   showActions = false,
   onAccept,
   onDecline,
+  isLoading =false,
 }) => {
   const navigate = useNavigate();
   const { patientId, appointmentDate } = data;
   const fullName = patientId?.userId?.fullName || "Unnamed Patient";
+
+  
 
   if (!patientId || !patientId.userId) return null;
 
@@ -88,13 +92,14 @@ const handleViewProfile = () => {
       {showActions ? (
         <div className="flex gap-2">
           <Button
-            label="Decline"
+            label={IsLoadng ? "Declining..." : "Decline"}
             bgcolor="#F87171"
             color="white"
             height="40px"
               width="150px"
             padding="0.4rem 1rem"
             onClick={onDecline}
+            disabled={isLoading}
           />
           <Button
             label="Accept"
@@ -104,6 +109,8 @@ const handleViewProfile = () => {
               width="150px"
             padding="0.4rem 1rem"
             onClick={onAccept}
+          disabled={isLoading}
+
           />
         </div>
       ) : (

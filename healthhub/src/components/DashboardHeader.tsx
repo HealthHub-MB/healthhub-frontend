@@ -227,7 +227,7 @@ const DashboardHeader = (props) => {
         {buttonText !== "" && (
           <button
             onClick={onButtonClick}
-            className="bg-blue-100 text-gray-900 font-bold px-4 py-2 rounded-md hover:bg-blue-400"
+            className="bg-blue-100 text-gray-900 font-bold px-4 py-2 rounded-md hover:bg-blue-400 cursor-pointer"
           >
             {buttonText}
           </button>

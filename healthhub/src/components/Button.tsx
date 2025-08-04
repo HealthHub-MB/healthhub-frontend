@@ -40,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({
         fontWeight: 500,
         
       }}
-      className={`transition duration-200 ease-in-out hover:opacity-80 ${className}`}
+      className={`transition duration-200 ease-in-out hover:opacity-80 cursor-pointer ${className}`}
     >
       {label}
     </button>

@@ -28,6 +28,7 @@ interface Appointment {
 
 const DoctorDashboard = () => {
   const navigate = useNavigate();
+  const[isLoading , setIsLoading] = useState()
   const [upcomingAppointments, setUpcomingAppointments] = useState<Appointment[]>([]);
   const [appointmentsToday, setAppointmentsToday] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,10 @@ const DoctorDashboard = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+
+      
+
+
 
         const allAppointments: Appointment[] = res.data.upcomingAppointments || [];
         setUpcomingAppointments(allAppointments);

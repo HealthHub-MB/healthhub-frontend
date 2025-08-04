@@ -100,7 +100,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               fontSize: '28px',
               lineHeight: '35px',
               color: '#121417',
-              fontFamily: 'Inter',
+
             }}
           >
             Create Your Account
@@ -110,7 +110,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       {/* Full Name */}
        <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
           <div className="flex flex-col w-[448px] h-[88px]">
-            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
+            <label className="mb-2 font-medium" style={{  fontSize: '16px', color: '#121417' }}>
               Full Name
             </label>
         <input
@@ -128,7 +128,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       {/* Email */}
       <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
           <div className="flex flex-col w-[448px] h-[88px]">
-            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
+            <label className="mb-2 font-medium" style={{  fontSize: '16px', color: '#121417' }}>
                Email
             </label>
         <input
@@ -146,7 +146,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       {/* Password */}
       <div className="flex flex-wrap items-end content-start gap-4 px-4 py-3" style={{ width: '480px', height: '112px' }}>
           <div className="flex flex-col w-[448px] h-[88px]">
-            <label className="mb-2 font-medium" style={{ fontFamily: 'Inter', fontSize: '16px', color: '#121417' }}>
+            <label className="mb-2 font-medium" style={{  fontSize: '16px', color: '#121417' }}>
               Password
             </label>
         <input
@@ -165,14 +165,14 @@ const handleSubmit = async (e: React.FormEvent) => {
       <div className="flex gap-4">
         <button
           type="button"
-          className={`p-2 px-4 rounded-md ${formData.role === 'patient' ? 'font-bold':'bg-white'}`}
+          className={`p-2 px-4 rounded-md ${formData.role === 'patient' ? 'font-bold':'bg-white'} cursor-pointer`}
           onClick={() => handleRoleChange('patient')}
         >
           I am a Patient
         </button>
         <button
           type="button"
-          className={`p-2 px-4 rounded-md ${formData.role === 'doctor' ? 'font-bold':'bg-white'}`}
+          className={`p-2 px-4 rounded-md ${formData.role === 'doctor' ? 'font-bold':'bg-white'} cursor-pointer`}
           onClick={() => handleRoleChange('doctor')}
         >
           I am a Doctor

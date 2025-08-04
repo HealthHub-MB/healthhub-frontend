@@ -117,7 +117,7 @@ const EditPatientForm: React.FC = () => {
           {[
             { label: 'Full Name', field: 'fullName', type: 'text' },
             { label: 'Age', field: 'age', type: 'number' },
-            { label: 'Contact Number', field: 'contactNumber', type: 'text' },
+            { label: 'Contact Number', field: 'contactNumber', type: 'tel' },
           ].map(({ label, field, type }) => (
             <div key={field} className="mb-4 w-[480px]">
               <label className="block mb-2 font-medium">{label}</label>

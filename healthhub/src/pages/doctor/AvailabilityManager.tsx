@@ -29,7 +29,7 @@ const ManageAvailability: React.FC = () => {
     }
 
     const token = localStorage.getItem("token");
-    const doctorId = localStorage.getItem("doctorId"); // optional, if your backend needs it
+    const doctorId = localStorage.getItem("doctorId");
 
     if (!token) {
       alert("User not authenticated");
@@ -40,7 +40,7 @@ const ManageAvailability: React.FC = () => {
       startTime,
       endTime,
       weekDays: activeDays,
-      ...(doctorId ? { doctorId } : {}) // include doctorId if present
+      ...(doctorId ? { doctorId } : {}) //
     };
 
     console.log("Submitting availability payload:", payload);
