@@ -34,13 +34,18 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
       </div>
 
       {/* View Profile Button */}
-      <div className="flex flex-col items-start w-[111px] h-[87px]">
-        <button
-          onClick={onViewProfile}
-          className="flex justify-center items-center px-4 h-[32px] w-full bg-[#F0F2F5] rounded-[8px]"
-        >
-          <span className="text-[#121417] text-[14px] font-medium leading-[21px]">Profile</span>
-        </button>
+      <div className="flex flex-col items-start w-[150px] h-[40px] ">
+       <button
+  onClick={onViewProfile}
+  className="flex justify-center items-center px-4 rounded-[8px] text-white text-[14px] font-medium leading-[21px] hover:opacity-90"
+  style={{
+    backgroundColor: "#94C2F0",
+    height: "40px",
+    width: "150px",
+  }}
+>
+  <span>Profile</span>
+</button>
       </div>
     </div>
   );

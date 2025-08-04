@@ -24,6 +24,15 @@ const DoctorProfileForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+   const handleNumberChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    if(value.length <=10) setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -41,7 +50,7 @@ const DoctorProfileForm = () => {
 
       const payload = {
         ...formData,
-        userId:user_Id,
+        userId: user_Id,
       };
 
       console.log("Submitting:", payload);
@@ -60,192 +69,189 @@ const DoctorProfileForm = () => {
       // const { userId } = response.data;
 
       console.log("Form submitted:", response.data);
-       navigate('/doctor-dashboardp')
-const { data } = response.data;
+      navigate("/doctor-dashboardp");
+      const { data } = response.data;
 
-if (data && data.userId) {
-  localStorage.setItem("userId", data.userId.toString());
-}
+      if (data && data.userId) {
+        localStorage.setItem("userId", data.userId.toString());
+      }
 
       localStorage.setItem("userId", userId.id);
-     
-
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
 
-//   e.preventDefault();
-//   try {
-//     const userIdRaw = localStorage.getItem("userid");
-//     const token = localStorage.getItem("token");
+  //   e.preventDefault();
+  //   try {
+  //     const userIdRaw = localStorage.getItem("userid");
+  //     const token = localStorage.getItem("token");
 
-//     console.log("userId =", userIdRaw);
-//     console.log("token =", token);
+  //     console.log("userId =", userIdRaw);
+  //     console.log("token =", token);
 
-//     const userId = userIdRaw ? parseInt(userIdRaw) : null;
-//     if (!userId) {
-//       console.error("User ID not found in localStorage.");
-//       return;
-//     }
+  //     const userId = userIdRaw ? parseInt(userIdRaw) : null;
+  //     if (!userId) {
+  //       console.error("User ID not found in localStorage.");
+  //       return;
+  //     }
 
-//     const payload = {
-//       ...formData,
-//       userId,
-//     };
+  //     const payload = {
+  //       ...formData,
+  //       userId,
+  //     };
 
-//     console.log("Submitting:", payload);
+  //     console.log("Submitting:", payload);
 
-//     const response = await axios.post(
-//       "http://localhost:8080/api/doctors/profile",
-//       payload,
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
+  //     const response = await axios.post(
+  //       "http://localhost:8080/api/doctors/profile",
+  //       payload,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
 
-//     console.log("Form submitted:", response.data);
+  //     console.log("Form submitted:", response.data);
 
-//     alert("profile creted succefully")
-//     navigate("/");
-//     localStorage.clear()
-//   } catch (error) {
-//     console.error("Error submitting form:", error);
-//   }
-// };
-
-
-
-
+  //     alert("profile creted succefully")
+  //     navigate("/");
+  //     localStorage.clear()
+  //   } catch (error) {
+  //     console.error("Error submitting form:", error);
+  //   }
+  // };
 
   return (
     <>
-      <DashboardHeader isDoctor={true}/>
-      <div className="flex justify-center items-start px-40 py-5 w-full max-w-[1280px] mx-auto ">
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-start gap-5 w-[960px] max-w-full"
-        >
-          <h2 className="text-[28px] font-bold text-center w-full text-[#121417]">
-            Complete Your Doctor Profile
-          </h2>
+      <DashboardHeader isDoctor={true} />
 
-          {/* Specialization Dropdown */}
-          <div className="w-full max-w-[480px]">
-            <label className="block text-[#121417] font-medium text-[16px] mb-2">
-              Specialization
-            </label>
-            <select
-              name="specialization"
-              value={formData.specialization}
-              onChange={handleChange}
-              className="w-full px-4 py-4 border border-[#DBE0E6] rounded-[12px] text-[#121417] placeholder-[#637587] text-[16px] bg-white"
-            >
-              <option value="">Select specialization</option>
-              <option value="Cardiology">Cardiology</option>
-              <option value="Neurology">Neurology</option>
-              <option value="Dermatology">Dermatology</option>
-              <option value="Pediatrics">Pediatrics</option>
-              <option value="Orthopedics">Orthopedics</option>
-              <option value="Psychiatry">Psychiatry</option>
-              <option value="General Medicine">General Medicine</option>
-            </select>
-          </div>
 
-          {/* Gender */}
-          <div
-            className="flex flex-wrap items-end content-start gap-4 px-4 py-3"
-            style={{ width: "480px", height: "112px" }}
+        <div className="flex justify-center items-start px-40 py-5 w-full max-w-[1280px] mx-auto my-0 ">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col items-start gap-5 w-[960px] max-w-full"
           >
-            <div className="flex flex-col w-[448px] h-[88px]">
-              <label
-                className="mb-2 font-medium"
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: "16px",
-                  color: "#121417",
-                }}
-              >
-                Gender
+            <h2 className="text-[28px] font-bold text-center w-full text-[#121417]">
+              Complete Your Doctor Profile
+            </h2>
+
+            {/* Specialization Dropdown */}
+            <div className="w-full max-w-[480px]">
+              <label className="block text-[#121417] font-medium text-[16px] mb-2">
+                Specialization
               </label>
               <select
-                name="gender"
-                value={formData.gender}
+                name="specialization"
+                value={formData.specialization}
                 onChange={handleChange}
-                className="w-full p-4 rounded-xl border border-[#DEE0E3] focus:outline-none"
-                required
+                className="w-full px-4 py-4 border border-[#DBE0E6] rounded-[12px] text-[#121417] text-[#637587] text-[16px] bg-white"
               >
-                <option value="">Select your gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
+                <option value="">Select specialization</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Psychiatry">Psychiatry</option>
+                <option value="General Medicine">General Medicine</option>
               </select>
             </div>
-          </div>
 
-          {/* Office Address */}
-          <div className="w-full max-w-[480px]">
-            <label className="block text-[#121417] font-medium text-[16px] mb-2">
-              Office Address
-            </label>
-            <input
-              type="text"
-              name="officeAddress"
-              placeholder="Enter your office address"
-              value={formData.officeAddress}
-              onChange={handleChange}
-              className="w-full px-4 py-4 border border-[#DBE0E6] rounded-[12px] text-[#121417] placeholder-[#637587] text-[16px]"
-            />
-          </div>
+            {/* Gender */}
+            <div
+              className="flex flex-wrap items-end content-start gap-4  py-3"
+              // style={{ width: "480px", height: "112px" }}
+            >
+              <div className="flex flex-col w-[475px] h-[88px]">
+                <label
+                  className="mb-2 font-medium"
+                  style={{
+                    fontSize: "16px",
+                    color: "#121417",
+                  }}
+                >
+                  Gender
+                </label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  className="w-full p-4 rounded-xl border border-[#DEE0E3] focus:outline-none text-[#637587]"
+                  required
+                >
+                  <option value="">Select your gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
 
-          {/* Phone Number */}
-          <div className="w-full max-w-[480px]">
-            <label className="block text-[#121417] font-medium text-[16px] mb-2">
-              Phone Number
-            </label>
-            <input
-              type="number"
-              name="phoneNumber"
-              placeholder="Enter your phone number"
+            {/* Office Address */}
+            <div className="w-full max-w-[480px]">
+              <label className="block text-[#121417] font-medium text-[16px] mb-2">
+                Office Address
+              </label>
+              <input
+                type="text"
+                name="officeAddress"
+                placeholder="Enter your office address"
+                value={formData.officeAddress}
+                onChange={handleChange}
+                className="w-full px-4 py-4 border border-[#DBE0E6] rounded-[12px] text-[#121417] placeholder-[#637587] text-[16px]"
+              />
+            </div>
+
+            {/* Phone Number */}
+            <div className="w-full max-w-[480px]">
+              <label className="block text-[#121417] font-medium text-[16px] mb-2">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                name="phoneNumber"
+                placeholder="Enter your phone number"
                 maxLength={10}
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              className="w-full px-4 py-4 border border-[#DBE0E6] rounded-[12px] text-[#121417] placeholder-[#637587] text-[16px]"
-            />
-          </div>
+                value={formData.phoneNumber}
+                onChange={handleNumberChange}
+                className="w-full px-4 py-4 border border-[#DBE0E6] rounded-[12px] text-[#121417] placeholder-[#637587] text-[16px]"
+              />
+            </div>
 
-          {/* Bio */}
-          <div className="w-full max-w-[480px]">
-            <label className="block text-[#121417] font-medium text-[16px] mb-2">
-              Bio/Introduction (Optional)
-            </label>
-            <textarea
-              name="bio"
-              placeholder="Write a short bio"
-              value={formData.bio}
-              onChange={handleChange}
-              className="w-full px-4 py-4 h-[144px] border border-[#DBE0E6] rounded-[12px] text-[#121417] placeholder-[#637587] text-[16px] resize-none"
-            />
-          </div>
+            {/* Bio */}
+            <div className="w-full max-w-[480px]">
+              <label className="block text-[#121417] font-medium text-[16px] mb-2">
+                Bio/Introduction (Optional)
+              </label>
+              <textarea
+                name="bio"
+                placeholder="Write a short bio"
+                value={formData.bio}
+                onChange={handleChange}
+                className="w-full px-4 py-4 h-[144px] border border-[#DBE0E6] rounded-[12px] text-[#121417] placeholder-[#637587] text-[16px] resize-none"
+              />
+            </div>
 
-          {/* Submit Button */}
-          <div className="mt-4">
-            <Button
-              type="submit"
-              label="Submit"
-              width="480px"
-              padding="0.75rem 2rem"
-              bgcolor="#94C2F0"
-              color="#121417"
-              textSize="14px"
-              className="font-bold"
-            />
-          </div>
-        </form>
-      </div>
+            {/* Submit Button */}
+            <div className="mt-4">
+              <Button
+                type="submit"
+                label="Submit"
+                width="150px"
+                height="40px"
+                padding="0.75rem 2rem"
+                bgcolor="#94C2F0"
+                color="#121417"
+                textSize="14px"
+                className="font-bold"
+              />
+            </div>
+          </form>
+        </div>
+
     </>
   );
 };

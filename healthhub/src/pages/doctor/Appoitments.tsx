@@ -30,7 +30,7 @@ const Appointments: React.FC = () => {
   const [upcomingAppointments, setUpcomingAppointments] = useState<Appointment[]>([]);
   const [requestedAppointments, setRequestedAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
-
+ 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -69,12 +69,10 @@ const Appointments: React.FC = () => {
 
       const updatedAppointment: Appointment = res.data.data;
 
-      // Remove from requested
       setRequestedAppointments((prev) =>
         prev.filter((app) => app.id !== appointmentId)
       );
 
-      // If accepted, add to upcoming
       if (newStatus === "ACCEPTED") {
         setUpcomingAppointments((prev) => [...prev, updatedAppointment]);
       }

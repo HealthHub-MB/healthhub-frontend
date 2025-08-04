@@ -31,7 +31,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
           </div>
 
           {/* Button */}
-          <div className="flex justify-center items-center px-4 w-[160px] h-[32px] bg-[#F0F2F5] rounded-[12px] cursor-pointer" onClick={onButtonClick}>
+          <div className="flex justify-center items-center px-4 w-[150px] h-[40px] bg-[#F0F2F5] rounded-[12px] cursor-pointer" onClick={onButtonClick}>
             <div className="text-center text-[#121417] font-medium text-[14px] leading-[21px]">
               {buttonLabel}
             </div>

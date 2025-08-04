@@ -87,7 +87,7 @@ if (userRole === "doctor") {
                 fontSize: "28px",
                 lineHeight: "35px",
                 color: "#121417",
-                fontFamily: "Inter",
+
               }}
             >
               Welcome back
@@ -102,7 +102,7 @@ if (userRole === "doctor") {
               <label
                 className="mb-2 font-medium"
                 style={{
-                  fontFamily: "Inter",
+  
                   fontSize: "16px",
                   color: "#121417",
                 }}
@@ -118,7 +118,7 @@ if (userRole === "doctor") {
                 style={{
                   fontSize: "16px",
                   color: "#667882",
-                  fontFamily: "Inter",
+  
                 }}
                 required
               />
@@ -133,7 +133,7 @@ if (userRole === "doctor") {
               <label
                 className="mb-2 font-medium"
                 style={{
-                  fontFamily: "Inter",
+  
                   fontSize: "16px",
                   color: "#121417",
                 }}
@@ -149,7 +149,7 @@ if (userRole === "doctor") {
                 style={{
                   fontSize: "16px",
                   color: "#667882",
-                  fontFamily: "Inter",
+  
                 }}
                 required
               />
@@ -161,7 +161,7 @@ if (userRole === "doctor") {
               type="submit"
               label="Log In"
               height="40px"
-              width="429px"
+              width="150px"
               padding="0px 16px"
               bgcolor={Colors.blue}
               color="#121417"
@@ -179,7 +179,7 @@ if (userRole === "doctor") {
             <p
               className="text-center"
               style={{
-                fontFamily: "Inter",
+
                 fontSize: "14px",
                 color: "#667882",
               }}

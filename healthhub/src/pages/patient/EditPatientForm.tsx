@@ -117,7 +117,7 @@ const EditPatientForm: React.FC = () => {
           {[
             { label: 'Full Name', field: 'fullName', type: 'text' },
             { label: 'Age', field: 'age', type: 'number' },
-            { label: 'Contact Number', field: 'contactNumber', type: 'text' },
+            { label: 'Contact Number', field: 'contactNumber', type: 'tel' },
           ].map(({ label, field, type }) => (
             <div key={field} className="mb-4 w-[480px]">
               <label className="block mb-2 font-medium">{label}</label>
@@ -208,7 +208,7 @@ const EditPatientForm: React.FC = () => {
                   bgcolor={Colors.gray}
                   color="#121417"
                   textSize="14px"
-                  width="171px"
+                  width="150px"
                   height="40px"
                   padding="0px 16px"
                   className="rounded-lg font-bold"
@@ -225,7 +225,7 @@ const EditPatientForm: React.FC = () => {
                   label="Cancel"
                   onClick={handleCancel}
                   height="40px"
-                  width="160px"
+                  width="150px"
                   padding="0px 16px"
                   bgcolor={Colors.gray}
                   color="#121417"
