@@ -40,11 +40,11 @@
 //   const { patientId, appointmentDate } = data;
 //   const fullName = patientId?.userId?.fullName || "Unnamed Patient";
 
-  
+
 
 //   if (!patientId || !patientId.userId) return null;
 
-   
+
 //   const formatTimeRange = (dateStr: string): string => {
 //     const start = new Date(`${dateStr}T09:00:00`);
 //     const end = new Date(start.getTime() + 30 * 60000);
@@ -86,7 +86,7 @@
 //   </p>
 // </div>
 
-        
+
 //       </div>
 
 //       {showActions ? (
@@ -173,6 +173,9 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   const { patientId, appointmentDate } = data;
   const fullName = patientId?.userId?.fullName || "Unnamed Patient";
 
+  const [accepting, setAccepting] = useState(false);
+  const [declining, setDeclining] = useState(false);
+
   if (!patientId || !patientId.userId) return null;
 
   const formatTimeRange = (dateStr: string): string => {
@@ -189,6 +192,24 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
 
   const handleViewProfile = () => {
     navigate(`/patient-health-record/${patientId.userId.id}`);
+  };
+
+  const handleAccept = async () => {
+    setAccepting(true);
+    try {
+      await onAccept?.();
+    } finally {
+      setAccepting(false);
+    }
+  };
+
+  const handleDecline = async () => {
+    setDeclining(true);
+    try {
+      await onDecline?.();
+    } finally {
+      setDeclining(false);
+    }
   };
 
   return (
@@ -214,26 +235,30 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
       </div>
 
       {showActions ? (
-        <div className="flex gap-2">
-          <Button
-            label={isLoading ? "Declining..." : "Decline"}
+        <div className="flex gap-3">
+         <Button
+            label="Decline"
+            loading={declining}
+            loadingLabel="Declining..."
             bgcolor="#F87171"
             color="white"
             height="40px"
             width="150px"
             padding="0.4rem 1rem"
-            onClick={onDecline}
-            disabled={isLoading}
+            onClick={handleDecline}
+            disabled={declining || accepting}
           />
           <Button
-            label={isLoading ? "Accepting..." : "Accept"}
+            label="Accept"
+            loading={accepting}
+            loadingLabel="Accepting..."
             bgcolor="#86EFAC"
             color="black"
             height="40px"
             width="150px"
             padding="0.4rem 1rem"
-            onClick={onAccept}
-            disabled={isLoading}
+            onClick={handleAccept}
+            disabled={accepting || declining}
           />
         </div>
       ) : (

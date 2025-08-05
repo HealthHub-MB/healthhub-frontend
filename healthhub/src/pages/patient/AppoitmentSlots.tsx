@@ -33,6 +33,8 @@ const AppoitmentSlots: React.FC = () => {
   const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [bookingMessage, setBookingMessage] = useState<string>("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!doctorId || !token) return;
@@ -60,6 +62,8 @@ const AppoitmentSlots: React.FC = () => {
     const token = localStorage.getItem("token");
     if (!token || !selectedSlot || !selectedDate) return;
 
+    setIsLoading(true);
+
     axios
       .post(
         `http://localhost:8080/api/appointments`,
@@ -80,7 +84,9 @@ const AppoitmentSlots: React.FC = () => {
       .catch((err) => {
         console.error(err);
         setBookingMessage("Failed to request appointment.");
-      });
+      }).finally(() => {
+        setIsLoading(false);
+      })
   };
 
   return (
@@ -153,11 +159,10 @@ const AppoitmentSlots: React.FC = () => {
                       getAvailableSlots().map((slot) => (
                         <button
                           key={slot.id}
-                          className={`border px-4 py-2 rounded text-sm cursor-pointer ${
-                            selectedSlot?.id === slot.id
-                              ? " text-white"
-                              : "hover:bg-blue-100"
-                          }`}
+                          className={`border px-4 py-2 rounded text-sm cursor-pointer ${selectedSlot?.id === slot.id
+                            ? " text-white"
+                            : "hover:bg-blue-100"
+                            }`}
                           style={
                             selectedSlot?.id === slot.id
                               ? { backgroundColor: "#94C2F0" }
@@ -179,14 +184,19 @@ const AppoitmentSlots: React.FC = () => {
               )}
 
               <button
-                disabled={!selectedSlot}
+                disabled={!selectedSlot || isLoading}
                 onClick={handleAppointment}
                 className="text-white px-6 py-2 rounded text-sm disabled:opacity-80 cursor-pointer"
                 style={{
                   backgroundColor: "#94C2F0",
                 }}
               >
-                Request an Appointment
+                {isLoading && (
+                  <span
+                    className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                  ></span>
+                )}
+                {isLoading ? "Requesting..." : "Request an Appointment"}
               </button>
 
               {bookingMessage && (

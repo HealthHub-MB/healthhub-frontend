@@ -63,7 +63,7 @@ const MyAppointments: React.FC = () => {
 
   const renderAppointment = (appointment: Appointment) => {
     const { appointmentDate, doctorId, slotId } = appointment;
-    const doctorName =
+    const doctorName = 
       doctorId.gender === "female" ? "Dr. Sophia Green" : "Dr. Daniel Harris"; // Placeholder
     // const doctorImage =
     //   doctorId.gender === "female"
@@ -95,7 +95,7 @@ const MyAppointments: React.FC = () => {
   onClick={() => {
     navigate(`/view-doctor-details/${doctorId.id}`);
   }}
-  className="text-white px-6 py-2 rounded text-sm hover:opacity-90"
+  className="text-white px-6 py-2 rounded text-sm cursor-pointer hover:opacity-90"
   style={{
     backgroundColor: "#94C2F0",
     height: "40px",
